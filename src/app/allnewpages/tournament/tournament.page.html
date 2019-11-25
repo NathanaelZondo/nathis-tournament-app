@@ -1,9 +1,37 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>tournament</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+    <ion-toolbar>
+      <ion-title>fixtures</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-grid>
+   
+   
+ 
+      
+   
+      <ion-row no-padding class="matrix">
+        <ion-col  class="q1">
+          <div align = "center">Fixtures</div>
+          <ion-list  >
+            <ion-item *ngFor="let item of fixture" [color]="item.color">
+              {{ item.TeamName }} vs {{item.aTeamName}}&nbsp;&nbsp;Date:{{item.matchdate}}&nbsp;&nbsp;Time:{{item.matchtime}}
+            
+              <ion-button (click) ="currentmatch(item)">View Details</ion-button>
+            </ion-item>
+          </ion-list>
+         
+        </ion-col>
+  
+      
+   
+       
+   
+       
+      </ion-row>
+    </ion-grid>
+   
+   
+  </ion-content>
+  
