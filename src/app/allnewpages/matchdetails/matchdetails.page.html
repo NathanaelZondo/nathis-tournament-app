@@ -1,0 +1,162 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>match</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid *ngFor = "let x of cmatch">
+        <ion-row>
+            <ion-col>
+      HOME
+            </ion-col>
+            <ion-col>
+             AWAY
+            </ion-col>
+        </ion-row>
+      <ion-row>
+        <ion-col>
+  {{x.TeamName}}
+        </ion-col>
+        <ion-col>
+          {{x.aTeamName}}
+        </ion-col>
+     
+      </ion-row>
+      <ion-row>
+        <ion-col>
+  {{score}}
+        </ion-col>
+        <ion-col>
+          {{ascore}}
+        </ion-col>
+     
+      </ion-row>
+      <ion-row>
+        Timer:{{x.mins}}:{{timer}}
+      </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngFor = "let x of matchstats">
+ 
+      <ion-row>
+         <ion-col> Shots </ion-col>
+        <ion-col>
+       {{x.shots}}
+        </ion-col>
+        <ion-col>
+       {{x.ashots}}
+        </ion-col>
+     
+      </ion-row>
+      <ion-row>
+       <ion-col> Shots on Target</ion-col>
+        <ion-col>
+    {{x.ontarget}}
+        </ion-col>
+        <ion-col>
+          {{x.ontarget}}
+        </ion-col>
+     
+      </ion-row>
+      <ion-row>
+        <ion-col>Fouls</ion-col>
+          <ion-col>
+      {{x.fouls}}
+          </ion-col>
+          <ion-col>
+            {{x.afouls}}
+          </ion-col>
+       
+    
+    
+        </ion-row>
+    
+        <ion-row>
+         <ion-col> Yellow Cards</ion-col>
+            <ion-col>
+        {{x.yellow}}
+            </ion-col>
+            <ion-col>
+              {{x.ayellow}}
+            </ion-col>
+         
+          </ion-row>
+    
+          <ion-row>
+           <ion-col> Red Cards</ion-col>
+              <ion-col>
+          {{x.red}}
+              </ion-col>
+              <ion-col>
+                {{x.ared}}
+              </ion-col>
+           
+            </ion-row>
+    
+    
+            <ion-row>
+             <ion-col> OffSides</ion-col>
+                <ion-col>
+            {{x.off}}
+                </ion-col>
+                <ion-col>
+                  {{x.aoff}}
+                </ion-col>
+             
+              </ion-row>
+    
+    
+              <ion-row>
+               <ion-col>Corners</ion-col> 
+                  <ion-col>
+              {{x.corner}}
+                  </ion-col>
+                  <ion-col>
+                    {{x.acorner}}
+                  </ion-col>
+               
+                </ion-row>
+    
+            
+    
+      
+    </ion-grid>
+
+
+
+
+
+
+
+    <ion-grid >
+      <ion-row *ngFor = "let v of goals">
+       
+     <ion-col size="3">
+        <p>Home Goals </p> 
+           <p> {{v.goalscorer}}&nbsp; {{v.scoretime}}</p>
+      
+     </ion-col>
+
+            </ion-row>
+
+
+            <ion-row *ngFor = "let v of goals">
+       
+                <ion-col size="3">
+                   <p>Away Goals </p> 
+                      <p> {{v.goalscorer}}&nbsp; {{v.scoretime}}</p>
+                 
+                </ion-col>
+           
+                       </ion-row>
+                </ion-grid>
+
+                
+
+
+
+
+
+
+</ion-content>

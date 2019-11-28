@@ -14,7 +14,8 @@ const routes: Routes = [
   {
     path: 'registerpage',
     loadChildren: () => import('./allnewpages/registerpage/registerpage.module').then( m => m.RegisterpagePageModule)
-  },  {
+  },
+  {
     path: 'manage-team',
     loadChildren: () => import('./allnewpages/manage-team/manage-team.module').then( m => m.ManageTeamPageModule)
   },
@@ -30,9 +31,13 @@ const routes: Routes = [
     path: 'apply-tournament',
     loadChildren: () => import('./allnewpages/apply-tournament/apply-tournament.module').then( m => m.ApplyTournamentPageModule)
   },
-
-
+  {
+    path: 'matchdetails',
+    loadChildren: () => import('./allnewpages/matchdetails/matchdetails.module').then( m => m.MatchdetailsPageModule)
+  },
 ];
+
+
 
 @NgModule({
   imports: [
