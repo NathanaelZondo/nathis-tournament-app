@@ -50,16 +50,20 @@ console.log('docid = ',this.currentmatch.id)
   }
 score;
 ascore;
+goals =[];
+agoals =[];
   ionViewDidEnter()
   {
     firebase.firestore().collection('Top4').where("Tournament","==",this.currentmatch.Tournament).get().then(val=>{
       
       val.forEach(res=>{
-     
+     console.log(res.data())
      this.score =res.data().score;
      this.ascore =res.data().ascore;
         this.matchstats.push(res.data());
    
+        this.agoals =res.data().agoal;
+        this.goals =res.data().goal;
   
       })
       
