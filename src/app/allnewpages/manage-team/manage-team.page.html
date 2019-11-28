@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>manageTeam</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div *ngIf=" !isTeam">
+no team please add team <ion-button (click)="addTeam()"> add team</ion-button>
+</div>
+<div *ngIf="isTeam">
+<p>
+  {{display.teamName}}
+</p>
+<ion-button (click)="addPlayer()"> add players</ion-button>
+</div>
+</ion-content>

@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>addTeam</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="backimage" (click)="selectLogoImage()">
+        <img src="{{logoImage}}" alt="" class="bimage">
+        <div class="btn">
+            <ion-icon name="add"></ion-icon>
+          </div>
+      </div>
+      <div class="backimage" (click)="teamJersey()">
+          <img src="{{logoImage}}" alt="" class="bimage">
+          <div class="btn">
+              <ion-icon name="add"></ion-icon>
+            </div>
+        </div>
+        <div class="backimage" (click)="GoalKeeperJersey()">
+            <img src="{{GJerseyImage}}" alt="" class="bimage">
+            <div class="btn">
+                <ion-icon name="add"></ion-icon>
+              </div>
+          </div>
+
+  <form [formGroup]="addTeamForm">
+
+    <ion-item>
+      <ion-input type="text" formControlName="teamName" [(ngModel)]="teamNode.teamName" ngDefaultControl
+        placeholder="Team Name"></ion-input>
+    </ion-item>
+    <div class="error" *ngFor="let validate of validation_messages.teamName">
+      <div class="messages" style="color:red"
+        *ngIf="addTeamForm.get('teamName').hasError(validate.type) && (addTeamForm.get('teamName').dirty || addTeamForm.get('teamName').touched)">
+        {{validate.message}}
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-input type="text" formControlName="coachName" [(ngModel)]="teamNode.coachName" ngDefaultControl
+        placeholder="Coach name"></ion-input>
+    </ion-item>
+    <div class="error" *ngFor="let validate of validation_messages.coachName">
+      <div class="messages" style="color:red"
+        *ngIf="addTeamForm.get('coachName').hasError(validate.type) && (addTeamForm.get('coachName').dirty || addTeamForm.get('coachName').touched)">
+        {{validate.message}}
+      </div>
+    </div>
+    <!-- / ================================ -->
+    <ion-item>
+      <ion-input type="text" formControlName="region" [(ngModel)]="teamNode.region" ngDefaultControl
+        placeholder="Region"></ion-input>
+    </ion-item>
+    <div class="error" *ngFor="let validate of validation_messages.region">
+      <div class="messages" style="color:red"
+        *ngIf="addTeamForm.get('region').hasError(validate.type) && (addTeamForm.get('region').dirty || addTeamForm.get('region').touched)">
+        {{validate.message}}
+      </div>
+    </div>
+    <!-- /
+     -->
+    <ion-item>
+      <ion-input type="tel" maxLength="10" formControlName="tel" [(ngModel)]="teamNode.tel"
+         placeholder="Contact Number"></ion-input>
+    </ion-item>
+    <div class="error" *ngFor="let validate of validation_messages.tel">
+      <div class="messages" style="color:red"
+        *ngIf="addTeamForm.get('tel').hasError(validate.type) && (addTeamForm.get('tel').dirty || addTeamForm.get('tel').touched)">
+        {{validate.message}}
+      </div>
+    </div>
+
+    
+    <br>
+    <ion-button id="skip" (click)="createTeam(addTeamForm)" type="submit" [disabled]="!addTeamForm.valid"
+      ion-button style="width: 50vw; border-radius: 10px; background:#F3E1D5; color: black;position: relative; left: 20% ">
+      Add Team</ion-button>
+  </form>
+</ion-content>
