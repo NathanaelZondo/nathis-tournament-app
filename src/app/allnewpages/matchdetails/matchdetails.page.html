@@ -25,10 +25,10 @@
       </ion-row>
       <ion-row>
         <ion-col>
-  {{x.score}}
+  {{score}}
         </ion-col>
         <ion-col>
-          {{x.ascore}}
+          {{ascore}}
         </ion-col>
      
       </ion-row>
@@ -37,6 +37,90 @@
       </ion-row>
   </ion-grid>
 
-
+  <ion-grid *ngFor = "let x of matchstats">
+ 
+      <ion-row>
+         <ion-col> Shots </ion-col>
+        <ion-col>
+       {{x.shots}}
+        </ion-col>
+        <ion-col>
+       {{x.ashots}}
+        </ion-col>
+     
+      </ion-row>
+      <ion-row>
+       <ion-col> Shots on Target</ion-col>
+        <ion-col>
+    {{x.ontarget}}
+        </ion-col>
+        <ion-col>
+          {{x.ontarget}}
+        </ion-col>
+     
+      </ion-row>
+      <ion-row>
+        <ion-col>Fouls</ion-col>
+          <ion-col>
+      {{x.fouls}}
+          </ion-col>
+          <ion-col>
+            {{x.afouls}}
+          </ion-col>
+       
+    
+    
+        </ion-row>
+    
+        <ion-row>
+         <ion-col> Yellow Cards</ion-col>
+            <ion-col>
+        {{x.yellow}}
+            </ion-col>
+            <ion-col>
+              {{x.ayellow}}
+            </ion-col>
+         
+          </ion-row>
+    
+          <ion-row>
+           <ion-col> Red Cards</ion-col>
+              <ion-col>
+          {{x.red}}
+              </ion-col>
+              <ion-col>
+                {{x.ared}}
+              </ion-col>
+           
+            </ion-row>
+    
+    
+            <ion-row>
+             <ion-col> OffSides</ion-col>
+                <ion-col>
+            {{x.off}}
+                </ion-col>
+                <ion-col>
+                  {{x.aoff}}
+                </ion-col>
+             
+              </ion-row>
+    
+    
+              <ion-row>
+               <ion-col>Corners</ion-col> 
+                  <ion-col>
+              {{x.corner}}
+                  </ion-col>
+                  <ion-col>
+                    {{x.acorner}}
+                  </ion-col>
+               
+                </ion-row>
+    
+            
+    
+      
+    </ion-grid>
 
 </ion-content>

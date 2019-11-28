@@ -13,15 +13,16 @@ export class MatchdetailsPage implements OnInit {
   sub :Subscription;
   timer;
   cmatch =[];
+  matchstats =[];
   constructor(public plt:Platform,public allserve:AllserveService ) {
-
+    this.matchstats =[];
   
 this.cmatch.push(this.currentmatch);
 console.log(this.cmatch)
 
     this.plt.ready().then((readySource) =>{
       console.log('Platform ready from', readySource);
-      this.sub = timer(0,19000).subscribe(result =>{
+      this.sub = timer(0,9000).subscribe(result =>{
        
 
 
@@ -59,6 +60,27 @@ console.log('docid = ',this.currentmatch.id)
 
   ngOnInit() {
 
+  }
+score;
+ascore;
+  ionViewDidEnter()
+  {
+    firebase.firestore().collection('Top4').where("Tournament","==",this.currentmatch.Tournament).get().then(val=>{
+      
+      val.forEach(res=>{
+     
+     this.score =res.data().score;
+     this.ascore =res.data().ascore;
+        this.matchstats.push(res.data());
+   
+  
+      })
+      
+              })
+            
+            
+     
+    
   }
 
 }
