@@ -20,8 +20,7 @@ export class MatchdetailsPage implements OnInit {
 this.cmatch.push(this.currentmatch);
 console.log(this.cmatch)
 
-    this.plt.ready().then((readySource) =>{
-      console.log('Platform ready from', readySource);
+ 
       this.sub = timer(0,9000).subscribe(result =>{
        
 
@@ -39,19 +38,7 @@ console.log('docid = ',this.currentmatch.id)
         
         
     
-    
-        
-
-
-
-
-
-
-
-
-
-      }
-      )})
+      })
 
 
 
