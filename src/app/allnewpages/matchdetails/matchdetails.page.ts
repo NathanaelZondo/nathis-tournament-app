@@ -29,12 +29,12 @@ console.log(this.cmatch)
 
 
 
-console.log('docid = ',this.currentmatch.id)
+// console.log('docid = ',this.currentmatch.id)
 
-        firebase.firestore().collection('MatchFixtures').doc(this.currentmatch.id).onSnapshot(res=>{
-          // console.log(res.data())
-          this.timer =res.data().timer;
-        })
+        // firebase.firestore().collection('MatchFixtures').doc(this.currentmatch.id).onSnapshot(res=>{
+        //   // console.log(res.data())
+        //   this.timer =res.data().timer;
+        // })
         
         
     
@@ -54,20 +54,20 @@ goals =[];
 agoals =[];
   ionViewDidEnter()
   {
-    firebase.firestore().collection('Top4').where("Tournament","==",this.currentmatch.Tournament).get().then(val=>{
+    // firebase.firestore().collection('Top4').where("Tournament","==",this.currentmatch.Tournament).get().then(val=>{
       
-      val.forEach(res=>{
-     console.log(res.data())
-     this.score =res.data().score;
-     this.ascore =res.data().ascore;
-        this.matchstats.push(res.data());
+    //   val.forEach(res=>{
+    //  console.log(res.data())
+    //  this.score =res.data().score;
+    //  this.ascore =res.data().ascore;
+    //     this.matchstats.push(res.data());
    
-        this.agoals =res.data().agoal;
-        this.goals =res.data().goal;
+    //     this.agoals =res.data().agoal;
+    //     this.goals =res.data().goal;
   
-      })
+    //   })
       
-              })
+    //           })
             
             
      

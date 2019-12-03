@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { menuController } from '@ionic/core';
@@ -13,7 +13,7 @@ import { findWires } from 'selenium-webdriver/firefox';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 popover1;
 db = firebase.firestore()
 role
@@ -23,9 +23,9 @@ user
 // this.router.navigate(['tournament']);
 // console.log('uid',firebase.auth().currentUser.uid);
 // this.getUserProfile()
-this.user = firebase.auth().currentUser.uid
+// this.user = firebase.auth().currentUser.uid
 this.auth.setUser(this.user);
-this.getUserProfile()
+
   }
 async  popover(){
   this. popover1 = await this.popoverController.create({
@@ -40,12 +40,20 @@ ionViewWillLeave()
 {
   this.popover1.dismiss(); 
 }
-getUserProfile() {
-  this.db.collection('members').doc(this.auth.getUser()).get().then(res => {
-    this.pass.role = res.data().form.role;
-   this.pass.profile = res.data()
-    console.log('role',this.role);
-    
-  })
+ngOnInit(){
+  // this.getUserProfile();
+  setTimeout(() => {
+    console.log('home', this.pass.role);
+  }, 500);
+
+  
 }
+// getUserProfile() {
+//   this.db.collection('members').doc(this.auth.getUser()).get().then(res => {
+//     this.pass.role = res.data().form.role;
+//    this.pass.profile = res.data()
+//     console.log('role',this.role);
+    
+//   })
+// }
 }

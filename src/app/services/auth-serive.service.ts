@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { AlertController } from '@ionic/angular';
+import { PassInformationService } from './pass-information.service';
 declare var window
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,12 @@ export class AuthSeriveService {
   email
   password
   //confirmationResult
- 
+ role
   public userProfile: firebase.firestore.DocumentReference;
   public currentUser: firebase.User;
 user
-  constructor(public alertCtrl: AlertController) { 
+profile = {}
+  constructor(public alertCtrl: AlertController,public pass: PassInformationService) { 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.currentUser = user;
@@ -34,7 +36,19 @@ user
   setUser(val){
     this.user = val;
     console.log('User form Provider', this.user);
+    // firebase.firestore().collection('members').doc(this.user).get().then(res =>{
+    //   this.role = res.data().form.role;
+    //   this.profile = res.data()
+
+    //    console.log('role',this.role);
+    //    console.log('document',this.profile);
+       
+    // })
   }
+getProfile(){
+return this.profile
+
+}
   requestLogin(number, appVerifier){
     return firebase.auth().signInWithPhoneNumber(number, appVerifier).then(confirmationResult => {
       window.confirmationResult = confirmationResult;

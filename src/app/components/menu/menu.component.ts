@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthSeriveService } from 'src/app/services/auth-serive.service';
 import { LoadingController } from '@ionic/angular';
 import { PassInformationService } from 'src/app/services/pass-information.service';
+import { TouchSequence } from 'selenium-webdriver';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -36,10 +37,22 @@ user
 
   ngOnInit() {
    console.log('mana',this.passService.role);
-   
-this.role = this.passService.role;
+   firebase.auth().onAuthStateChanged(res =>{
+     if(res){
+      this.role = this.passService.role;
+     }else{
+       this.role = 'user'
+     }
+   })
+
     
    
+  }
+  profile(){
+    this.router.navigateByUrl('profile');
+  }
+  login(){
+    this.router.navigateByUrl('login');
   }
   register(){
 this.router.navigateByUrl('registerpage');
@@ -59,7 +72,7 @@ this.router.navigateByUrl('registerpage');
     });
     return await loading.present();
   }
-  signout(): void {
+  signout(){
   firebase.auth().signOut().then(()=>{
     this.presentLoadingWithOptions();
     this.router.navigateByUrl('home').catch(err=>{

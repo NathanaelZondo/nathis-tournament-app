@@ -1,72 +1,47 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { RegisterFormComponent } from 'src/app/components/register-form/register-form.component';
-import { UserCredential } from 'src/app/Models/user';
+import { Component, OnInit } from '@angular/core';
 import { AuthSeriveService } from 'src/app/services/auth-serive.service';
-import * as firebase from 'firebase'
-import { AlertController, LoadingController } from '@ionic/angular';
 import { FormBuilder, Validators } from '@angular/forms';
-import { async } from 'q';
+import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase'
 declare var window
 @Component({
-  selector: 'app-registerpage',
-  templateUrl: './registerpage.page.html',
-  styleUrls: ['./registerpage.page.scss'],
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
 })
-export class RegisterpagePage {
-  phoneNumber = ''
-  lastNum = ''
-  password
+export class LoginPage implements OnInit {
+  db = firebase.firestore()
   registrationForm
+  phoneNumber = ''
+  password
   smsSent
   confirmationResult = ''
   inputCode
   fullName 
   uid 
   role 
-  db = firebase.firestore()
   public recaptchaVerifier: firebase.auth.RecaptchaVerifier
-  Profile ={
-    number : '',
-    fullName : '',
-    uid : '',
-    role :''
-
-  }
-  constructor(  
+  constructor(
     public authService: AuthSeriveService,
     public formBuilder: FormBuilder,
     public alertController: AlertController,
     public route :Router,
-    public loadingController: LoadingController
+  ) { 
+    this.registrationForm = formBuilder.group({
+      phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])],
+     
+    })
+  }
 
-    ) {
-      this.smsSent = false
-​
-      firebase.auth().languageCode = 'en';
-​
-  this.registrationForm = formBuilder.group({
-    phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])],
-    fullName:['', Validators.required],
-    role:['', Validators.required],
-  })
-​
-  }
   ngOnInit() {
-    // firebase.auth().onAuthStateChanged(res => {
-    //   if (res) {
-    //     this.profileService.storeAdmin(res);
-    //     this.route.navigateByUrl('home', { skipLocationChange: true });
-    //   }
-    // });
   }
- 
   requestCode(){
     // this.phoneNumber = this.registrationForm.get('phoneNumber').value
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
     console.log(window.recaptchaVerifier);
     let appVerifier = window.recaptchaVerifier
-    return this.authService.requestLogin(this.lastNum, appVerifier).then(result => {
+    return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
       if(result.success === true){
         console.log(result);
         this.confirmationResult = result.result
@@ -83,17 +58,12 @@ export class RegisterpagePage {
   }
 ​
   addUser(form){
-
-   let number =  this.phoneNumber.substr(1)
-    this.lastNum = '+' + 27 + number;
-    console.log(number, ' s',);
-    
     // this.phoneNumber = this.registrationForm.get('phoneNumber').value
-    this.fullName = this.registrationForm.get('fullName').value
-    this.role = this.registrationForm.get('role').value
+    // this.fullName = this.registrationForm.get('fullName').value
+    // this.role = this.registrationForm.get('role').value
 
-// this.lastNum = form.phoneNumber
-    console.log('object',this.lastNum );
+this.phoneNumber = form.phoneNumber
+    console.log('object',this.phoneNumber );
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
       size: 'invisible',
       callback: (response) => {
@@ -105,7 +75,7 @@ export class RegisterpagePage {
     });
     console.log(window.recaptchaVerifier);
     let appVerifier = window.recaptchaVerifier
-    return this.authService.requestLogin(this.lastNum, appVerifier).then(result => {
+    return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
       if(result.success === true){
         console.log(result);
         this.confirmationResult = result.result
@@ -134,14 +104,13 @@ export class RegisterpagePage {
         handler: (result) => {
           console.log(result.code);
           this.logins(result.code);
-          firebase.auth().onAuthStateChanged(res =>{
+//           firebase.auth().onAuthStateChanged(res =>{
   
-            if(res.uid ){
-this.db.collection('members').doc(res.uid).set({form})
-              console.log('see ',res.uid);
-            }
-          })
-this.presentLoading()
+//             if(res.uid ){
+// this.db.collection('members').doc(res.uid).set({form})
+//               console.log('see ',res.uid);
+//             }
+//           })
           this.route.navigateByUrl('/home');
         }
       }]
@@ -161,17 +130,4 @@ this.presentLoading()
       console.log(error)
     });
   }
-  
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Loging In',
-      duration: 2000
-    });
-    await loading.present();
-
-    // const { role, data } = await loading.onDidDismiss();
-
-    // console.log('Loading dismissed!');
-  }
-
 }
