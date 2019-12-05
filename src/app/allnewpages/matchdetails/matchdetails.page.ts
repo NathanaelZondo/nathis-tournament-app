@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AllserveService } from 'src/app/allservices/allserve.service';
 import * as firebase from 'firebase';
-import { Subscription, Observable, observable,timer } from 'rxjs';
+import { Subscription, Observable, observable, timer } from 'rxjs';
 import { LoadingController, IonicModule, Platform } from '@ionic/angular';
 @Component({
   selector: 'app-matchdetails',
@@ -9,8 +9,8 @@ import { LoadingController, IonicModule, Platform } from '@ionic/angular';
   styleUrls: ['./matchdetails.page.scss'],
 })
 export class MatchdetailsPage implements OnInit {
-  currentmatch =this.allserve.currentmatch;
-  sub :Subscription;
+  currentmatch = this.allserve.currentmatch;
+  sub: Subscription;
   timer;
   cmatch =[];
   matchstats =[];
@@ -28,6 +28,7 @@ console.log(this.cmatch)
 
 
 
+        // console.log('docid = ', this.currentmatch.id)
 
 // console.log('docid = ',this.currentmatch.id)
 
@@ -40,10 +41,7 @@ console.log(this.cmatch)
     
       })
 
-
-
-
-   }
+  }
 
   ngOnInit() {
 

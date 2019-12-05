@@ -34,7 +34,8 @@ const routes: Routes = [
   {
     path: 'matchdetails',
     loadChildren: () => import('./allnewpages/matchdetails/matchdetails.module').then( m => m.MatchdetailsPageModule)
-  },  {
+  },
+  {
     path: 'login',
     loadChildren: () => import('./allnewpages/login/login.module').then( m => m.LoginPageModule)
   },
