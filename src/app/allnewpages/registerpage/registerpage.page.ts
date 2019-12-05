@@ -174,5 +174,7 @@ this.presentLoading()
 
     // console.log('Loading dismissed!');
   }
-
+  close() {
+    this.route.navigateByUrl('home');
+  }
 }

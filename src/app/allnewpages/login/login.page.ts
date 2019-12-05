@@ -70,6 +70,7 @@ this.phoneNumber = form.phoneNumber
         console.log('checking here');
       },
       'expired-callback': () => {
+        console.log('capcha expired');s
         
       }
     });
@@ -129,5 +130,8 @@ this.phoneNumber = form.phoneNumber
     }).catch((error) => {
       console.log(error)
     });
+  }
+  close() {
+    this.route.navigateByUrl('home');
   }
 }
