@@ -25,12 +25,16 @@ players = []
   addTeam(){
     this.router.navigateByUrl('add-team');
   }
- 
+  viewPlayer(){
+    console.log('see');
+    
+  }
   addPlayer(){
     this.router.navigateByUrl('add-player');
   }
 getTeam(){
 let user 
+
   this.db.collection('Teams').doc(firebase.auth().currentUser.uid).get().then(res =>{
     if(res.exists){
      console.log(res.data());
