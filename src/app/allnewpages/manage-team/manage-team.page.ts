@@ -31,7 +31,7 @@ players = []
   }
 getTeam(){
 let user 
-  this.db.collection('Teams').doc(firebase.auth().currentUser.uid).onSnapshot(res =>{
+  this.db.collection('Teams').doc(firebase.auth().currentUser.uid).get().then(res =>{
     if(res.exists){
      console.log(res.data());
      this.isTeam = true;
@@ -40,6 +40,7 @@ let user
     //  this.isNotTeam = false;
     }
     this.db.collection('Teams').doc(firebase.auth().currentUser.uid).collection('Players').onSnapshot(res =>{
+      this.players = []
       if(!res.empty){
         res.forEach(doc =>{
 this.players.push(doc.data())

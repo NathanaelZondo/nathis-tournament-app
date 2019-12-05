@@ -8,7 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
+import { FCM } from '@ionic-native/fcm/ngx';
 import { Camera } from '@ionic-native/camera/ngx'
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +19,7 @@ import { Camera } from '@ionic-native/camera/ngx'
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Camera,
+    FCM
   ],
   bootstrap: [AppComponent]
 })

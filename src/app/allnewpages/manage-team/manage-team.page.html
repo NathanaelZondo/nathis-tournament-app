@@ -12,6 +12,14 @@ no team please add team <ion-button (click)="addTeam()"> add team</ion-button>
 <p>
   {{display.teamName}}
 </p>
+<div>
+  <ion-list  ngFor="let x of players">
+    <ion-item>
+      <!-- <ion-label>{{x.fullName}}</ion-label> -->
+      <!-- <ion-input></ion-input> -->
+    </ion-item>
+  </ion-list>
+</div>
 <ion-button (click)="addPlayer()"> add players</ion-button>
 </div>
 </ion-content>
