@@ -147,7 +147,7 @@ this.presentTeamCreateAlert()
               this.applytournaments.push(obj)
             }
           })
-          }else if (this.passService.role =='teamManager'){
+          }else if (this.passService.role == 'teamManager'){
             this.db.collection('newTournaments').doc(document.id).collection('teamApplications').doc(firebase.auth().currentUser.uid).get().then(res => {
               console.log('applied tournaments', res.data());
               if (res.exists) {

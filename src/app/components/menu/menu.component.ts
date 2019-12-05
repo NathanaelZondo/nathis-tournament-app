@@ -17,6 +17,7 @@ role = 'user'
 db = firebase.firestore()
 getUser
 user
+status
   constructor(private router: Router,
     private authservice: AuthSeriveService,
     public loadingController: LoadingController,
@@ -40,6 +41,11 @@ user
    firebase.auth().onAuthStateChanged(res =>{
      if(res){
       this.role = this.passService.role;
+      firebase.firestore().collection('members').doc(res.uid).get().then(res =>
+        {
+          console.log('userProfile', res.data().status);
+          this.status = res.data().status
+        })
      }else{
        this.role = 'user'
      }
@@ -49,7 +55,12 @@ user
    
   }
   profile(){
-    this.router.navigateByUrl('profile');
+    if(this.status == 'awaiting'){
+      this.router.navigateByUrl('errorpage')
+    }else{
+      this.router.navigateByUrl('profile');
+    }
+   
   }
   login(){
     this.router.navigateByUrl('login');
@@ -59,10 +70,20 @@ this.router.navigateByUrl('registerpage');
 
   }
   manageteam(){
-    this.router.navigateByUrl('manage-team');
+    if(this.status == 'awaiting'){
+      this.router.navigateByUrl('errorpage')
+    }else{
+      this.router.navigateByUrl('manage-team');
+    }
+    
   }
   applyTournament(){
-    this.router.navigateByUrl('apply-tournament');
+    if(this.status == 'awaiting'){
+      this.router.navigateByUrl('errorpage')
+    }else{
+      this.router.navigateByUrl('apply-tournament');
+    }
+   
   }
   async presentLoadingWithOptions() {
     const loading = await this.loadingController.create({
@@ -81,6 +102,7 @@ this.router.navigateByUrl('registerpage');
     })
   })
 }
+
 }
 export interface Profile {
   form: { name : string}

@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./allnewpages/profile/profile.module').then( m => m.ProfilePageModule)
   },
+  {
+    path: 'errorpage',
+    loadChildren: () => import('./allnepages/errorpage/errorpage.module').then( m => m.ErrorpagePageModule)
+  },
 
 ];
 

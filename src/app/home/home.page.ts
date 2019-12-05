@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import { PassInformationService } from '../services/pass-information.service';
 import { AuthSeriveService } from '../services/auth-serive.service';
 import { findWires } from 'selenium-webdriver/firefox';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,11 @@ popover1;
 db = firebase.firestore()
 role
 user
-  constructor(public router:Router,public popoverController: PopoverController,public pass : PassInformationService, public auth: AuthSeriveService) {
+  constructor(public router:Router,
+    public popoverController: PopoverController,
+    public pass : PassInformationService, 
+    public auth: AuthSeriveService,
+    public fcm: FCM) {
 
 // this.router.navigate(['tournament']);
 // console.log('uid',firebase.auth().currentUser.uid);
@@ -40,8 +45,19 @@ ionViewWillLeave()
 {
   this.popover1.dismiss(); 
 }
+getToken(){
+  this.fcm.getToken().then(token => {
+  console.log(token);
+  this.db.collection('fcmTokens').add({
+    token: token,
+    uid: ''
+  })
+  });
+  
+}
 ngOnInit(){
   // this.getUserProfile();
+  this.getToken();
   setTimeout(() => {
     console.log('home', this.pass.role);
   }, 500);

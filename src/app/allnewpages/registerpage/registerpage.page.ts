@@ -121,6 +121,7 @@ export class RegisterpagePage {
     const alert = await this.alertController.create({
       header: 'Verfification code',
       // subHeader: 'Enter verification code',
+      backdropDismiss: false,
       inputs: [
         {
           name: 'code',
@@ -137,7 +138,7 @@ export class RegisterpagePage {
           firebase.auth().onAuthStateChanged(res =>{
   
             if(res.uid ){
-this.db.collection('members').doc(res.uid).set({form})
+this.db.collection('members').doc(res.uid).set({form, status: 'awaiting'})
               console.log('see ',res.uid);
             }
           })
