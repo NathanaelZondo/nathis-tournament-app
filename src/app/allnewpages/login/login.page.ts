@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthSeriveService } from 'src/app/services/auth-serive.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase'
 declare var window
@@ -27,13 +27,23 @@ export class LoginPage implements OnInit {
     public formBuilder: FormBuilder,
     public alertController: AlertController,
     public route :Router,
+    public loadingController : LoadingController
   ) { 
     this.registrationForm = formBuilder.group({
       phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])],
      
     })
   }
-
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+   
+      duration: 2000,
+      message: 'Please wait...',
+      translucent: true,
+     
+    });
+    return await loading.present();
+  }
   ngOnInit() {
   }
   requestCode(){
@@ -112,6 +122,7 @@ this.phoneNumber = form.phoneNumber
 //             }
 //           })
           this.route.navigateByUrl('/home');
+          this.presentLoading()
         }
       }]
     });
