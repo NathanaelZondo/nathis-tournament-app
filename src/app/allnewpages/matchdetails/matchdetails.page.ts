@@ -12,29 +12,64 @@ export class MatchdetailsPage implements OnInit {
   currentmatch = this.allserve.currentmatch;
   sub: Subscription;
   timer;
-  cmatch = [];
-  constructor(public plt: Platform, public allserve: AllserveService) {
-    this.cmatch.push(this.currentmatch);
-    console.log(this.cmatch)
+  cmatch =[];
+  matchstats =[];
+  constructor(public plt:Platform,public allserve:AllserveService ) {
+    this.matchstats =[];
+  
+this.cmatch.push(this.currentmatch);
+console.log(this.cmatch)
 
-    this.plt.ready().then((readySource) => {
-      console.log('Platform ready from', readySource);
-      this.sub = timer(0, 19000).subscribe(result => {
+ 
+      this.sub = timer(0,9000).subscribe(result =>{
+       
 
-        console.log('docid = ', this.currentmatch.id)
 
-        firebase.firestore().collection('MatchFixtures').doc(this.currentmatch.id).onSnapshot(res => {
-          // console.log(res.data())
-          this.timer = res.data().timer;
-        })
-      }
-      )
-    })
+
+
+
+        // console.log('docid = ', this.currentmatch.id)
+
+// console.log('docid = ',this.currentmatch.id)
+
+        // firebase.firestore().collection('MatchFixtures').doc(this.currentmatch.id).onSnapshot(res=>{
+        //   // console.log(res.data())
+        //   this.timer =res.data().timer;
+        // })
+        
+        
+    
+      })
 
   }
 
   ngOnInit() {
 
+  }
+score;
+ascore;
+goals =[];
+agoals =[];
+  ionViewDidEnter()
+  {
+    // firebase.firestore().collection('Top4').where("Tournament","==",this.currentmatch.Tournament).get().then(val=>{
+      
+    //   val.forEach(res=>{
+    //  console.log(res.data())
+    //  this.score =res.data().score;
+    //  this.ascore =res.data().ascore;
+    //     this.matchstats.push(res.data());
+   
+    //     this.agoals =res.data().agoal;
+    //     this.goals =res.data().goal;
+  
+    //   })
+      
+    //           })
+            
+            
+     
+    
   }
 
 }

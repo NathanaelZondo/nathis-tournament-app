@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>addPlayer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+        <div class="backimage" (click)="selectImage()">
+            <img src="{{profileImage}}" alt="" class="bimage">
+            <div class="btn">
+                <ion-icon name="add"></ion-icon>
+              </div>
+          </div>
+
+  <form [formGroup]="addPlayerForm">
+
+    <ion-item>
+      <ion-input type="text" formControlName="fullName" [(ngModel)]="playerNode.fullName" ngDefaultControl
+        placeholder="Full Name"></ion-input>
+    </ion-item>
+    <div class="error" *ngFor="let validate of validation_messages.fullName">
+      <div class="messages" style="color:red"
+        *ngIf="addPlayerForm.get('fullName').hasError(validate.type) && (addPlayerForm.get('fullName').dirty || addPlayerForm.get('fullName').touched)">
+        {{validate.message}}
+      </div>
+    </div>
+    <!-- //'
+      ' -->
+    <ion-item>
+        <ion-input type="text" formControlName="playerPosition" [(ngModel)]="playerNode.playerPosition"
+           placeholder=" player Posistion"></ion-input>
+      </ion-item>
+      <div class="error" *ngFor="let validate of validation_messages.playerPosition">
+        <div class="messages" style="color:red"
+          *ngIf="addPlayerForm.get('playerPosition').hasError(validate.type) && (addPlayerForm.get('playerPosition').dirty || addPlayerForm.get('playerPosition').touched)">
+          {{validate.message}}
+        </div>
+        </div>
+    <ion-item>
+        <ion-label position="floating">MM/DD/YYYY</ion-label>
+        <ion-datetime formControlName="DOB" [(ngModel)]="playerNode.DOB" ngDefaultControl displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09"></ion-datetime>
+      
+    </ion-item>
+    <!-- <div class="error" *ngFor="let validate of validation_messages.coachName">
+      <div class="messages" style="color:red"
+        *ngIf="addPlayerForm.get('coachName').hasError(validate.type) && (addPlayerForm.get('coachName').dirty || addPlayerForm.get('coachName').touched)">
+        {{validate.message}}
+      </div>
+    </div> -->
+    <!-- / ================================ -->
+    <ion-item>
+      <ion-input type="text" formControlName="previousTeam" [(ngModel)]="playerNode.previousTeam" ngDefaultControl
+        placeholder="previous Team"></ion-input>
+    </ion-item>
+    <div class="error" *ngFor="let validate of validation_messages.previousTeam">
+      <div class="messages" style="color:red"
+        *ngIf="addPlayerForm.get('previousTeam').hasError(validate.type) && (addPlayerForm.get('previousTeam').dirty || addPlayerForm.get('previousTeam').touched)">
+        {{validate.message}}
+      </div>
+    </div>
+    <!-- /
+     -->
+    <ion-item>
+      <ion-input type="tel" maxLength="10" formControlName="height" [(ngModel)]="playerNode.height"
+         placeholder="player height"></ion-input>
+    </ion-item>
+    <div class="error" *ngFor="let validate of validation_messages.height">
+      <div class="messages" style="color:red"
+        *ngIf="addPlayerForm.get('height').hasError(validate.type) && (addPlayerForm.get('height').dirty || addPlayerForm.get('height').touched)">
+        {{validate.message}}
+      </div>
+    </div>
+<!-- //
+ -->
+ <ion-item>
+    <ion-input type="text"  formControlName="Achievements" [(ngModel)]="playerNode.Achievements"
+       placeholder="player Achievements"></ion-input>
+  </ion-item>
+  <div class="error" *ngFor="let validate of validation_messages.Achievements">
+    <div class="messages" style="color:red"
+      *ngIf="addPlayerForm.get('Achievements').hasError(validate.type) && (addPlayerForm.get('Achievements').dirty || addPlayerForm.get('Achievements').touched)">
+      {{validate.message}}
+    </div>
+  </div>    
+    <br>
+    <ion-button id="skip" (click)="createTeam(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid"
+      ion-button style="width: 50vw; border-radius: 10px; background:#F3E1D5; color: black;position: relative; left: 20% ">
+      Add Team</ion-button>
+  </form>
+</ion-content>

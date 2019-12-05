@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-content>
+    <div id="recaptcha-container"></div>
+    <form  [formGroup]="registrationForm" (ngSubmit)="addUser(registrationForm.value)">
+        <ion-label stacked>Phone Number</ion-label>
+        <ion-input formControlName="phoneNumber" type="text" [(ngModel)]="phoneNumber"></ion-input>
+
+      <ion-button id="sign-in-button" type="submit" class="form-buttons" [disabled]="!registrationForm.valid"  >
+        Login
+      </ion-button>
+      </form>
+</ion-content>
+
+</ion-content>

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="role == 'vendor'">
+      <p>{{profile.fullName}}</p>
+<p>i am a vendor</p>
+
+  </div>
+  <div *ngIf="role == 'teamManager'">
+      <p>{{profile.fullName}}</p>
+      <p>i am a team manager</p>
+  </div>
+
+</ion-content>

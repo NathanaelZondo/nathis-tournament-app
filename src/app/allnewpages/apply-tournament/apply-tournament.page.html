@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>applyTournament</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let x of applytournaments">
+    <!-- <img src="./madison.jpg" /> -->
+    <ion-card-header>
+ 
+      <ion-card-title>{{x.doc.formInfo.tournamentName}}</ion-card-title>
+      <ion-card-subtitle>{{x.doc.formInfo.joiningFee}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+     <p>{{x.doc.formInfo.applicationClosing | date}}</p><br> <p>{{x.doc.formInfo.applicationClosing | date}}</p><br> <p></p><br> <p></p><br> <p></p><br>
+<!-- <p >{{x.application.status}}</p> -->
+
+<div *ngIf="x.isApplied == false">
+  <ion-button fill="outline" slot="end" (click)="applyForTournament(x)" >Apply</ion-button>
+</div>
+<div *ngIf="x.isApplied == true">
+<p *ngIf="x.application.status == 'awaiting'"> Your application is still being processed</p>
+<p *ngIf="x.application.status == 'accepted'"> Application is being conditionally approved, please use {{x.application.refNumber}} to pay</p>
+  <ion-button slot="end" (click)="checkStatus(x)" >check sta</ion-button>
+</div>
+    </ion-card-content>
+   
+  </ion-card>
+</ion-content>

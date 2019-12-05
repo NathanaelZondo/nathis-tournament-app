@@ -4,20 +4,45 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { config } from '../app/FirebaseConfig';
+import { Router } from '@angular/router';
+import { PassInformationService } from './services/pass-information.service';
+import { Profile } from 'selenium-webdriver/firefox';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  role
+   profile = {} as Profile 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private router : Router,
+    private pass : PassInformationService
   ) {
     firebase.initializeApp(config)
     this.initializeApp();
-
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      if (!user) {
+        this.router.navigateByUrl("/home");
+        console.log('not logged in');
+        
+        unsubscribe();
+      } else {
+        this.router.navigateByUrl("/home");
+        console.log('logged in');
+        firebase.firestore().collection('members').doc(user.uid).get().then(res =>{
+          this.pass.role = res.data().form.role;
+     
+    
+           console.log('role',  this.pass.role );
+      
+        });
+        unsubscribe();
+      }
+    });
   }
 
   initializeApp() {
@@ -26,4 +51,8 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
+}
+export interface Profile  {
+  name : string
 }
