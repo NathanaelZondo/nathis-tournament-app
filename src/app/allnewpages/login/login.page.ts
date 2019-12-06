@@ -105,6 +105,7 @@ this.phoneNumber = form.phoneNumber
     const alert = await this.alertController.create({
       header: 'Verfification code',
       // subHeader: 'Enter verification code',
+      backdropDismiss: false,
       inputs: [
         {
           name: 'code',

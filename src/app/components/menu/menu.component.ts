@@ -43,7 +43,7 @@ status
       this.role = this.passService.role;
       firebase.firestore().collection('members').doc(res.uid).get().then(res =>
         {
-          console.log('userProfile', res.data().status);
+          //  q     console.log('userProfile', res.data().status);
           this.status = res.data().status
         })
      }else{
