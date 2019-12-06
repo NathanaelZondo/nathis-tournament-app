@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators,FormArray } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-player.page.scss'],
 })
 export class AddPlayerPage implements OnInit {
-
+date
   playerNode = {
     fullName: '',
     palyerImage: '',
@@ -29,26 +29,44 @@ export class AddPlayerPage implements OnInit {
   logoImage
   GJerseyImage
   TjerseyImage
-  
+  counter : number ;
+  position =  [{value:'Goalkeeper', label:'1.Goalkeeper'},{value:' Right Fullback', label: '2.Right Fullback'},{value:'Left Fullback', label: '3.Left Fullback'},{value:'Center Back', label: '4.Center Back'},
+  {value:'Center Back (Sweeper)', label: '5.Center Back(Sweeper)'},{value:'Defending/Holding Midfielder', label: '6.Defending/Holding Midfielder'},{value:'Right Midfielder/Winger', label: '7.Right Midfielder/Winger'},
+  {value:'Central/Box-to-Box Midfielder', label: '8.Central/Box-to-Box Midfielder'},{value:'Striker', label: '9.Striker'},{value:'Attacking Midfielder/Playmaker', label: '10.Attacking Midfielder/Playmaker'},{value:'Left Midfielder/Wingers', label: '11.Left Midfielder/Wingers'}]
   constructor(
     private formBuilder: FormBuilder,
     private camera: Camera ,
     public loadingController: LoadingController,
     private router: Router,
     public toastController: ToastController ) {
+
+      let v = new Date
+    this.date =  v.getFullYear() - 8
     this.addPlayerForm = this.formBuilder.group({
       DOB: new FormControl('', Validators.required),
     fullName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])),
     previousTeam: new FormControl('', Validators.required),
     height: new FormControl('', Validators.compose([Validators.required])),
     playerPosition: new FormControl('', Validators.compose([Validators.required])),
-      Achievements: new FormControl('', Validators.compose([Validators.required])),
-
+      //  Achievements: new FormControl('', Validators.compose([Validators.required])), 
+      Achievements: this.formBuilder.array([
+        this.formBuilder.control('')
+      ])
     });
+   
   }
-
+  get Achievements(){
+    return this.addPlayerForm.get('Achievements') as FormArray
+  }
+  addNew(){
+this.Achievements.push(this.formBuilder.control(''));
+  }
   ngOnInit() {
+
   }
+  // getVal() {
+  //   this.Achievements
+  // }
   async createTeam(addPlayerForm: FormGroup): Promise<void> {
     if (!addPlayerForm.valid) {
       addPlayerForm.value
@@ -56,9 +74,16 @@ export class AddPlayerPage implements OnInit {
     else  {
       // load the profile creation process
       const load = await this.loadingController.create({
-        message: 'Creating Your Team..'
+        message: 'Creating Your Player..'
       });
       load.present();
+      this.counter = 0
+      for(let x of this.Achievements.controls){
+        console.log("acheia", this.addPlayerForm.get(['Achievements',this.counter]).value);
+        this.counter = this.counter + 1;
+        this.playerNode.Achievements.push(x.value)
+      }
+      console.log('arr',this.playerNode.Achievements);
       
       parseInt(this.playerNode.height)
       const user = this.db.collection('Teams').doc(firebase.auth().currentUser.uid).collection('Players').doc().set(this.playerNode)
@@ -72,9 +97,7 @@ export class AddPlayerPage implements OnInit {
 
         });
         toast.present();
-     
         load.dismiss();
-
         // catch any errors.
       }).catch(async err => {
         const toast =  await this.toastController.create({
@@ -82,7 +105,6 @@ export class AddPlayerPage implements OnInit {
           duration: 2000
         })
         toast.present();
-
         load.dismiss();
       })
     }
@@ -146,21 +168,21 @@ export class AddPlayerPage implements OnInit {
       // { type: 'validUsername', message: 'Your username has already been taken.' }
     ],
     'previousTeam': [
-      { type: 'required', message: 'location is required.' },
-      { type: 'minlength', message: 'location must be at least 4 characters long.' },
-      { type: 'maxlength', message: 'location cannot be more than 25 characters long.' },
-      { type: 'pattern', message: 'Your location must not contain numbers and special characters.' },
-      { type: 'validUsername', message: 'Your location has already been taken.' }
+      { type: 'required', message: 'previous Team is required.' },
+      { type: 'minlength', message: 'previous Team must be at least 4 characters long.' },
+      { type: 'maxlength', message: 'previous Team cannot be more than 25 characters long.' },
+      { type: 'pattern', message: 'Your previous Team must not contain numbers and special characters.' },
+      { type: 'validUsername', message: 'Your previous Team has already been taken.' }
     ],
     'playerPosition': [
-      { type: 'required', message: 'Salon contact number is required.' }
+      { type: 'required', message: 'player Position is required.' }
     ],
     'height': [
-      { type: 'required', message: 'Number of hairdresses is required.' }
+      { type: 'required', message: 'height  is required.' }
     ],
-    'Achievements': [
-      { type: 'required', message: 'Number of hairdresses is required.' }
-    ],
+    // 'Achievements': [
+    //   { type: 'required', message: 'Achievements is required.' }
+    // ],
   };
 
 }

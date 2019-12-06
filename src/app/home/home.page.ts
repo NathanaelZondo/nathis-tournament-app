@@ -15,10 +15,12 @@ import { FCM } from '@ionic-native/fcm/ngx';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  
 popover1;
 db = firebase.firestore()
 role
 user
+temporaryArray = []
   constructor(public router:Router,
     public popoverController: PopoverController,
     public pass : PassInformationService, 
@@ -56,13 +58,23 @@ getToken(){
   
 }
 ngOnInit(){
+  while (this.temporaryArray.length < 20) {
+    this.temporaryArray.push('card')
+  }
   // this.getUserProfile();
   this.getToken();
   setTimeout(() => {
     console.log('home', this.pass.role);
   }, 500);
 
+  let v = new Date
+ let m =  v.getFullYear() - 5
+console.log(m);
+
   
+}
+addTeam() {
+  this.router.navigateByUrl('add-team');
 }
 // getUserProfile() {
 //   this.db.collection('members').doc(this.auth.getUser()).get().then(res => {
