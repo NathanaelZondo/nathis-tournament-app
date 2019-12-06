@@ -41,13 +41,15 @@ status
    firebase.auth().onAuthStateChanged(res =>{
      if(res){
       this.role = this.passService.role;
-      firebase.firestore().collection('members').doc(res.uid).get().then(res =>
+      firebase.firestore().collection('members').doc(res.uid).get().then(snap =>
         {
-          //  q     console.log('userProfile', res.data().status);
-          this.status = res.data().status
+          console.log('userProfile', res.uid, snap.data().status);
+          this.status = snap.data().status
         })
      }else{
-       this.role = 'user'
+       this.role = 'user';
+       console.log('no user');
+       
      }
    })
 

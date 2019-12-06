@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import * as firebase from 'firebase';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { LoadingController, ToastController } from '@ionic/angular';
-import { async } from 'q';
 import { Router } from '@angular/router';
 import { PassInformationService } from 'src/app/services/pass-information.service';
 @Component({
@@ -17,7 +16,7 @@ export class AddTeamPage implements OnInit {
     coachName: '',
     region: '',
     tel: '',
-    userUID: firebase.auth().currentUser.uid,
+    // userUID: firebase.auth().currentUser.uid,
     DateCreated : new Date,
     teamLogo: '',
     teamJerseyIMG: '',
@@ -49,10 +48,10 @@ export class AddTeamPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
   async createTeam(addTeamForm: FormGroup): Promise<void> {
-    if (!addTeamForm.valid) {
+    /*
+if (!addTeamForm.valid) {
       addTeamForm.value
     }
     else  {
@@ -89,14 +88,13 @@ export class AddTeamPage implements OnInit {
         load.dismiss();
       })
     }
-
+    */
+    this.router.navigateByUrl('add-player')
   }
-
 
   //Functions to upload images
   async selectLogoImage() {
     let option: CameraOptions = {
-    
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -134,12 +132,10 @@ export class AddTeamPage implements OnInit {
     }, err => {
       console.log("Something went wrong: ", err);
     })
-
   }  
 
   async teamJersey() {
     let option: CameraOptions = {
-    
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -177,11 +173,9 @@ export class AddTeamPage implements OnInit {
     }, err => {
       console.log("Something went wrong: ", err);
     })
-
   }  
   async GoalKeeperJersey() {
     let option: CameraOptions = {
-    
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -222,7 +216,6 @@ export class AddTeamPage implements OnInit {
     }, err => {
       console.log("Something went wrong: ", err);
     })
-
   }  
 
   validation_messages = {
@@ -230,21 +223,21 @@ export class AddTeamPage implements OnInit {
       { type: 'required', message: 'Name is required.' },
       { type: 'minlength', message: 'Name must be at least 4 characters long.' },
       { type: 'maxlength', message: 'Name cannot be more than 25 characters long.' },
-      { type: 'pattern', message: 'Your Name must not contain numbers and special characters.' },
+      { type: 'pattern', message: 'Name must not contain numbers or special characters.' },
       { type: 'validUsername', message: 'Your username has already been taken.' }
     ],
     'coachName': [
-      { type: 'required', message: 'location is required.' },
-      { type: 'minlength', message: 'location must be at least 4 characters long.' },
-      { type: 'maxlength', message: 'location cannot be more than 25 characters long.' },
-      { type: 'pattern', message: 'Your location must not contain numbers and special characters.' },
-      { type: 'validUsername', message: 'Your location has already been taken.' }
+      { type: 'required', message: 'Location is required.' },
+      { type: 'minlength', message: 'Location must be at least 4 characters long.' },
+      { type: 'maxlength', message: 'Location cannot be more than 25 characters long.' },
+      { type: 'pattern', message: 'Location must not contain numbers and special characters.' },
+      { type: 'validUsername', message: 'Location has already been taken.' }
     ],
     'region': [
-      { type: 'required', message: 'Salon contact number is required.' }
+      { type: 'required', message: 'Team region is required.' }
     ],
     'tel': [
-      { type: 'required', message: 'Number of hairdresses is required.' }
+      { type: 'required', message: 'Contact details are required.' }
     ],
   };
 }

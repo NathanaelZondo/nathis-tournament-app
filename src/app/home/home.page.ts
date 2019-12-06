@@ -73,6 +73,9 @@ console.log(m);
 
   
 }
+addTeam() {
+  this.router.navigateByUrl('add-team');
+}
 // getUserProfile() {
 //   this.db.collection('members').doc(this.auth.getUser()).get().then(res => {
 //     this.pass.role = res.data().form.role;
