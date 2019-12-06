@@ -3,10 +3,10 @@
     Add Squad
   </div>
   <div class="squadPreview">
-    <div class="card">
+    <div class="card" *ngFor="let x of players" tappable="true" (click)="viewPlayer(x)">
       <img src="">
       <div class="details">
-        <p><b>Tobba Yiuri</b></p>
+        <p><b>{{x.docdata.fullName}}</b></p>
         <p>28 Jul, 1992</p>
         <p>Defender</p>
         <p>3 m tall</p>,
@@ -83,8 +83,16 @@
     </div>
 
     <br>
-    <ion-button id="skip" (click)="createTeam(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid" ion-button
+    <ion-button *ngIf="!buttonChange" id="skip" (click)="createTeam(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid" ion-button
       style="width: 50vw; border-radius: 10px; background:#F3E1D5; color: black;position: relative; left: 20% ">
-      Add Team</ion-button>
+      Add Player</ion-button>
+      <ion-button *ngIf="buttonChange" id="skip" (click)="editTeam(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid" ion-button
+      style="width: 50vw; border-radius: 10px; background:#F3E1D5; color: black;position: relative; left: 20% ">
+      edit Player</ion-button>
   </form>
+  <div>
+    <ion-button (click)="done()">
+      DONE
+    </ion-button>
+  </div>
 </ion-content>

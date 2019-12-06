@@ -21,6 +21,7 @@ date
     height: '',
     Achievements : [] 
   }
+  buttonChange = false
   addPlayerForm: FormGroup;
   db = firebase.firestore();
   storage = firebase.storage().ref();
@@ -29,7 +30,9 @@ date
   logoImage
   GJerseyImage
   TjerseyImage
+  docId 
   counter : number ;
+  players = []
   position =  [{value:'Goalkeeper', label:'1.Goalkeeper'},{value:' Right Fullback', label: '2.Right Fullback'},{value:'Left Fullback', label: '3.Left Fullback'},{value:'Center Back', label: '4.Center Back'},
   {value:'Center Back (Sweeper)', label: '5.Center Back(Sweeper)'},{value:'Defending/Holding Midfielder', label: '6.Defending/Holding Midfielder'},{value:'Right Midfielder/Winger', label: '7.Right Midfielder/Winger'},
   {value:'Central/Box-to-Box Midfielder', label: '8.Central/Box-to-Box Midfielder'},{value:'Striker', label: '9.Striker'},{value:'Attacking Midfielder/Playmaker', label: '10.Attacking Midfielder/Playmaker'},{value:'Left Midfielder/Wingers', label: '11.Left Midfielder/Wingers'}]
@@ -61,12 +64,64 @@ date
   addNew(){
 this.Achievements.push(this.formBuilder.control(''));
   }
-  ngOnInit() {
-
+  done(){
+    this.router.navigateByUrl('manage-team')
   }
-  // getVal() {
-  //   this.Achievements
-  // }
+  ngOnInit() {
+this.getTeam()
+  }
+  viewPlayer(x){
+    this.buttonChange = true
+    console.log('value',this.buttonChange);
+    this.playerNode.fullName = x.docdata.fullName
+    this.playerNode.DOB = x.docdata.DOB
+    this.playerNode.playerPosition = x.docdata.playerPosition
+    this.playerNode.previousTeam = x.docdata.previousTeam
+    this.playerNode.height = x.docdata.height
+    this.playerNode.Achievements = x.docdata.Achievements
+    this.docId = x.docid
+   
+  }
+ async editTeam(form){
+console.log('edit',form);
+const load = await this.loadingController.create({
+  message: 'Creating Your Player..'
+});
+load.present();
+const user = this.db.collection('Teams').doc(firebase.auth().currentUser.uid).collection('Players').doc(this.docId).update(this.playerNode)
+    
+// upon success...
+user.then(async() => {
+  this.docId = null
+  this.buttonChange =false
+ this. playerNode = {
+    fullName: '',
+    palyerImage: '',
+    DOB : '',
+    previousTeam : '',
+    DateCreated : new Date,
+    playerPosition: '',
+    height: '',
+    Achievements : [] 
+  }
+  this.router.navigateByUrl('add-player')
+  const toast = await this.toastController.create({
+    message: 'User Team added.',
+    duration: 2000,
+
+  });
+  toast.present();
+  load.dismiss();
+  // catch any errors.
+}).catch(async err => {
+  const toast =  await this.toastController.create({
+    message: 'Error creating Team.',
+    duration: 2000
+  })
+  toast.present();
+  load.dismiss();
+})
+  }
   async createTeam(addPlayerForm: FormGroup): Promise<void> {
     if (!addPlayerForm.valid) {
       addPlayerForm.value
@@ -90,7 +145,7 @@ this.Achievements.push(this.formBuilder.control(''));
       
       // upon success...
       user.then(async() => {
-        this.router.navigateByUrl('manage-team')
+        this.router.navigateByUrl('add-player')
         const toast = await this.toastController.create({
           message: 'User Team added.',
           duration: 2000,
@@ -111,7 +166,37 @@ this.Achievements.push(this.formBuilder.control(''));
 
   }
 
-
+  getTeam(){
+  
+    let obj ={
+      docid: null,
+      docdata : null
+    }
+      this.db.collection('Teams').doc(firebase.auth().currentUser.uid).get().then(res =>{
+        if(res.exists){
+         console.log(res.data());
+       
+        //  this.display = res.data();
+         
+        //  this.isNotTeam = false;
+        }
+        this.db.collection('Teams').doc(firebase.auth().currentUser.uid).collection('Players').onSnapshot(res =>{
+          this.players = []
+          if(!res.empty){
+            res.forEach(doc =>{
+               obj ={
+                docid: doc.id,
+                docdata : doc.data()
+              }
+    this.players.push(obj)
+    console.log('players', this.players);
+    
+              // this.isPlayer = true
+            })
+          }
+        })
+      })
+    }
   //Functions to upload images
 
   async selectImage() {
