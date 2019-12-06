@@ -20,7 +20,10 @@ players = []
   }
 
   ngOnInit() {
-    this.getTeam();
+    while (this.players.length < 10) {
+      this.players.push('card')
+    }
+    // this.getTeam();
   }
   addTeam(){
     this.router.navigateByUrl('add-team');

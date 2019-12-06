@@ -68,7 +68,8 @@ status
     this.router.navigateByUrl('login');
   }
   register(){
-this.router.navigateByUrl('registerpage');
+// this.router.navigateByUrl('registerpage');
+this.router.navigateByUrl('manage-team');
 
   }
   manageteam(){
