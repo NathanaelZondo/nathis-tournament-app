@@ -1,31 +1,28 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>addPlayer</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-<div class="title">
-  Add Squad
-</div>
-<div class="squadPreview">
-  <div class="card">
-    <img src="">
-    <div class="details">
-      
+  <div class="title">
+    Add Squad
+  </div>
+  <div class="squadPreview">
+    <div class="card">
+      <img src="">
+      <div class="details">
+        <p><b>Tobba Yiuri</b></p>
+        <p>28 Jul, 1992</p>
+        <p>Defender</p>
+        <p>3 m tall</p>,
+        <p></p>
+      </div>
     </div>
   </div>
-</div>
 
-        <div class="backimage" (click)="selectImage()">
-            <img src="{{profileImage}}" alt="" class="bimage">
-            <div class="btn">
-                <ion-icon name="add"></ion-icon>
-              </div>
-          </div>
+  <div class="backimage" (click)="selectImage()">
+    <img src="{{playerNode.palyerImage}}" alt="" class="bimage">
+    <div class="btn">
+      <ion-icon name="add"></ion-icon>
+    </div>
+  </div>
 
   <form [formGroup]="addPlayerForm">
-
     <ion-item>
       <ion-input type="text" formControlName="fullName" [(ngModel)]="playerNode.fullName" ngDefaultControl
         placeholder="Full Name"></ion-input>
@@ -36,19 +33,18 @@
         {{validate.message}}
       </div>
     </div>
-    <!-- //'
-      ' -->
-        
-  <ion-item>
+
+    <ion-item>
       <ion-label>Player position</ion-label>
-      <ion-select formControlName="playerPosition"  [(ngModel)]="playerNode.playerPosition" >
+      <ion-select formControlName="playerPosition" [(ngModel)]="playerNode.playerPosition">
         <ion-select-option *ngFor="let g of position" [value]="g.value">{{g.label}} </ion-select-option>
       </ion-select>
     </ion-item>
-        <!-- / ================================ -->
+    <!-- / ================================ -->
     <ion-item>
-        <ion-label position="floating">Date of Birth</ion-label>
-        <ion-datetime formControlName="DOB" [(ngModel)]="playerNode.DOB" ngDefaultControl displayFormat="MM/DD/YYYY" min="1970-03-14" max="{{date}}"></ion-datetime>
+      <ion-label position="floating">Date of Birth</ion-label>
+      <ion-datetime formControlName="DOB" [(ngModel)]="playerNode.DOB" ngDefaultControl displayFormat="MM/DD/YYYY"
+        min="1970-03-14" max="{{date}}"></ion-datetime>
     </ion-item>
     <!-- / ================================ -->
     <ion-item>
@@ -65,7 +61,7 @@
      -->
     <ion-item>
       <ion-input type="tel" maxLength="10" formControlName="height" [(ngModel)]="playerNode.height"
-         placeholder="player height"></ion-input>
+        placeholder="player height"></ion-input>
     </ion-item>
     <div class="error" *ngFor="let validate of validation_messages.height">
       <div class="messages" style="color:red"
@@ -73,26 +69,22 @@
         {{validate.message}}
       </div>
     </div>
-<!-- //
+    <!-- //
  -->
- <div  formArrayName ="Achievements">
-   <ion-button (click)="addNew()"> add achie</ion-button>
-  <ion-item *ngFor="let ach of Achievements.controls;let i=index">
-    <label > player Achievements {{i+1}} </label>
-    <ion-input type="text"  [formControlName]="i" 
-       placeholder="player Achievements"></ion-input>
-  </ion-item>
-  <div class="error" *ngFor="let validate of validation_messages.Achievements">
-    <div class="messages" style="color:red"
-      *ngIf="addPlayerForm.get('Achievements').hasError(validate.type) && (addPlayerForm.get('Achievements').dirty || addPlayerForm.get('Achievements').touched)">
-      {{validate.message}}
+    <div formArrayName="Achievements">
+      <ion-button (click)="addNew()"> add achie</ion-button>
+      <ion-item *ngFor="let ach of Achievements.controls;let i=index">
+        <ion-label position="floating"> player Achievements {{i+1}} </ion-label>
+        <ion-input type="text" [formControlName]="i"></ion-input>
+        <ion-button >
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-item>
     </div>
-  </div>   
- </div>
-  
+
     <br>
-    <ion-button id="skip" (click)="createTeam(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid"
-      ion-button style="width: 50vw; border-radius: 10px; background:#F3E1D5; color: black;position: relative; left: 20% ">
+    <ion-button id="skip" (click)="createTeam(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid" ion-button
+      style="width: 50vw; border-radius: 10px; background:#F3E1D5; color: black;position: relative; left: 20% ">
       Add Team</ion-button>
   </form>
 </ion-content>

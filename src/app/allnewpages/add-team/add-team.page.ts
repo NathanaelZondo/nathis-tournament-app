@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import * as firebase from 'firebase';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { LoadingController, ToastController } from '@ionic/angular';
-import { async } from 'q';
 import { Router } from '@angular/router';
 import { PassInformationService } from 'src/app/services/pass-information.service';
 @Component({
@@ -90,15 +89,12 @@ if (!addTeamForm.valid) {
       })
     }
     */
-    
     this.router.navigateByUrl('add-player')
   }
-
 
   //Functions to upload images
   async selectLogoImage() {
     let option: CameraOptions = {
-    
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -136,12 +132,10 @@ if (!addTeamForm.valid) {
     }, err => {
       console.log("Something went wrong: ", err);
     })
-
   }  
 
   async teamJersey() {
     let option: CameraOptions = {
-    
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -179,11 +173,9 @@ if (!addTeamForm.valid) {
     }, err => {
       console.log("Something went wrong: ", err);
     })
-
   }  
   async GoalKeeperJersey() {
     let option: CameraOptions = {
-    
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -224,7 +216,6 @@ if (!addTeamForm.valid) {
     }, err => {
       console.log("Something went wrong: ", err);
     })
-
   }  
 
   validation_messages = {
