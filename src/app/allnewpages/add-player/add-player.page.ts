@@ -10,18 +10,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-player.page.scss'],
 })
 export class AddPlayerPage implements OnInit {
-  tempCardArray = []
+  players = []
   date
   playerNode = {
     fullName: '',
     palyerImage: '',
-    DOB: '',
-    previousTeam: '',
-    DateCreated: new Date,
+    DOB : '',
+    previousTeam : '',
+    DateCreated : null,
+    DateEdited : null,
     playerPosition: '',
     height: '',
     Achievements: []
   }
+  buttonChange = false
   addPlayerForm: FormGroup;
   db = firebase.firestore();
   storage = firebase.storage().ref();
@@ -91,9 +93,7 @@ export class AddPlayerPage implements OnInit {
 
   }
   ngOnInit() {
-    while (this.tempCardArray.length < 20) {
-      this.tempCardArray.push('card')
-    }
+
   }
   get Achievements() {
     return this.addPlayerForm.get('Achievements') as FormArray
@@ -122,11 +122,12 @@ export class AddPlayerPage implements OnInit {
       console.log('arr', this.playerNode.Achievements);
 
       parseInt(this.playerNode.height)
+      this.playerNode.DateCreated = new Date;
       const user = this.db.collection('Teams').doc(firebase.auth().currentUser.uid).collection('Players').doc().set(this.playerNode)
 
       // upon success...
-      user.then(async () => {
-        this.router.navigateByUrl('manage-team')
+      user.then(async() => {
+        this.router.navigateByUrl('add-player')
         const toast = await this.toastController.create({
           message: 'User Team added.',
           duration: 2000,
@@ -147,6 +148,37 @@ export class AddPlayerPage implements OnInit {
 
   }
 
+  getTeam(){
+  
+    let obj ={
+      docid: null,
+      docdata : null
+    }
+      this.db.collection('Teams').doc(firebase.auth().currentUser.uid).get().then(res =>{
+        if(res.exists){
+         console.log(res.data());
+       
+        //  this.display = res.data();
+         
+        //  this.isNotTeam = false;
+        }
+        this.db.collection('Teams').doc(firebase.auth().currentUser.uid).collection('Players').onSnapshot(res =>{
+          this.players = []
+          if(!res.empty){
+            res.forEach(doc =>{
+               obj ={
+                docid: doc.id,
+                docdata : doc.data()
+              }
+    this.players.push(obj)
+    console.log('players', this.players);
+    
+              // this.isPlayer = true
+            })
+          }
+        })
+      })
+    }
   //Functions to upload images
   async selectImage() {
     let option: CameraOptions = {
