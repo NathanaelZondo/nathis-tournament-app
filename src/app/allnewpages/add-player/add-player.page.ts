@@ -16,7 +16,8 @@ date
     palyerImage: '',
     DOB : '',
     previousTeam : '',
-    DateCreated : new Date,
+    DateCreated : null,
+    DateEdited : null,
     playerPosition: '',
     height: '',
     Achievements : [] 
@@ -64,11 +65,15 @@ date
   addNew(){
 this.Achievements.push(this.formBuilder.control(''));
   }
-  done(){
-    this.router.navigateByUrl('manage-team')
-  }
+  
   ngOnInit() {
 this.getTeam()
+  }
+  removeinput(){
+    this.Achievements.removeAt(this.Achievements.length - 1)
+  }
+  done(){
+    this.router.navigateByUrl('manage-team')
   }
   viewPlayer(x){
     this.buttonChange = true
@@ -85,9 +90,10 @@ this.getTeam()
  async editTeam(form){
 console.log('edit',form);
 const load = await this.loadingController.create({
-  message: 'Creating Your Player..'
+  message: 'Editing Your Player..'
 });
 load.present();
+this.playerNode.DateEdited =  new Date;
 const user = this.db.collection('Teams').doc(firebase.auth().currentUser.uid).collection('Players').doc(this.docId).update(this.playerNode)
     
 // upon success...
@@ -99,7 +105,8 @@ user.then(async() => {
     palyerImage: '',
     DOB : '',
     previousTeam : '',
-    DateCreated : new Date,
+    DateCreated :'',
+    DateEdited : '',
     playerPosition: '',
     height: '',
     Achievements : [] 
@@ -141,6 +148,7 @@ user.then(async() => {
       console.log('arr',this.playerNode.Achievements);
       
       parseInt(this.playerNode.height)
+      this.playerNode.DateCreated = new Date;
       const user = this.db.collection('Teams').doc(firebase.auth().currentUser.uid).collection('Players').doc().set(this.playerNode)
       
       // upon success...

@@ -76,7 +76,7 @@
       <ion-item *ngFor="let ach of Achievements.controls;let i=index">
         <ion-label position="floating"> player Achievements {{i+1}} </ion-label>
         <ion-input type="text" [formControlName]="i"></ion-input>
-        <ion-button >
+        <ion-button (click)="removeinput()" >
           <ion-icon slot="icon-only" name="close"></ion-icon>
         </ion-button>
       </ion-item>
