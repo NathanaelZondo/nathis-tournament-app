@@ -70,7 +70,7 @@ this.phoneNumber = form.phoneNumber
         console.log('checking here');
       },
       'expired-callback': () => {
-        console.log('capcha expired');s
+        console.log('capcha expired');
         
       }
     });
