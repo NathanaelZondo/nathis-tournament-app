@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthSeriveService } from 'src/app/services/auth-serive.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase'
 declare var window
@@ -14,6 +14,7 @@ export class LoginPage implements OnInit {
   db = firebase.firestore()
   registrationForm
   phoneNumber = ''
+   lastNum = ''
   password
   smsSent
   confirmationResult = ''
@@ -27,13 +28,23 @@ export class LoginPage implements OnInit {
     public formBuilder: FormBuilder,
     public alertController: AlertController,
     public route :Router,
+    public loadingController : LoadingController
   ) { 
     this.registrationForm = formBuilder.group({
       phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])],
      
     })
   }
-
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+   
+      duration: 2000,
+      message: 'Please wait...',
+      translucent: true,
+     
+    });
+    return await loading.present();
+  }
   ngOnInit() {
   }
   requestCode(){
@@ -41,7 +52,7 @@ export class LoginPage implements OnInit {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
     console.log(window.recaptchaVerifier);
     let appVerifier = window.recaptchaVerifier
-    return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
+    return this.authService.requestLogin(this.lastNum, appVerifier).then(result => {
       if(result.success === true){
         console.log(result);
         this.confirmationResult = result.result
@@ -61,9 +72,11 @@ export class LoginPage implements OnInit {
     // this.phoneNumber = this.registrationForm.get('phoneNumber').value
     // this.fullName = this.registrationForm.get('fullName').value
     // this.role = this.registrationForm.get('role').value
-
+    let number =  this.phoneNumber.substr(1)
+    this.lastNum = '+' + 27 + number;
+    console.log(number, ' s',);
 this.phoneNumber = form.phoneNumber
-    console.log('object',this.phoneNumber );
+    console.log('object',this.lastNum );
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
       size: 'invisible',
       callback: (response) => {
@@ -76,7 +89,7 @@ this.phoneNumber = form.phoneNumber
     });
     console.log(window.recaptchaVerifier);
     let appVerifier = window.recaptchaVerifier
-    return this.authService.requestLogin(this.phoneNumber, appVerifier).then(result => {
+    return this.authService.requestLogin(this.lastNum, appVerifier).then(result => {
       if(result.success === true){
         console.log(result);
         this.confirmationResult = result.result
@@ -104,7 +117,7 @@ this.phoneNumber = form.phoneNumber
         cssClass: 'secondary',
         handler: (result) => {
           console.log(result.code);
-          this.logins(result.code);
+          this.logins(result.code)
 //           firebase.auth().onAuthStateChanged(res =>{
   
 //             if(res.uid ){
@@ -113,6 +126,7 @@ this.phoneNumber = form.phoneNumber
 //             }
 //           })
           this.route.navigateByUrl('/home');
+          this.presentLoading()
         }
       }]
     });
@@ -125,7 +139,7 @@ this.phoneNumber = form.phoneNumber
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
     console.log(window.recaptchaVerifier);
     let appVerifier = window.recaptchaVerifier
-    firebase.auth().signInWithPhoneNumber(String(this.phoneNumber), appVerifier).then(confirmationResult => {
+    firebase.auth().signInWithPhoneNumber(String(this.lastNum), appVerifier).then(confirmationResult => {
       window.confirmationResult = confirmationResult;  
     }).catch((error) => {
       console.log(error)

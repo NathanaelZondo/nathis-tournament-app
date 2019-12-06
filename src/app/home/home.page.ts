@@ -67,6 +67,10 @@ ngOnInit(){
     console.log('home', this.pass.role);
   }, 500);
 
+  let v = new Date
+ let m =  v.getFullYear() - 5
+console.log(m);
+
   
 }
 addTeam() {

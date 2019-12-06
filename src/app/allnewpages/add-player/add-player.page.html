@@ -38,27 +38,18 @@
     </div>
     <!-- //'
       ' -->
-    <ion-item>
-        <ion-input type="text" formControlName="playerPosition" [(ngModel)]="playerNode.playerPosition"
-           placeholder=" player Posistion"></ion-input>
-      </ion-item>
-      <div class="error" *ngFor="let validate of validation_messages.playerPosition">
-        <div class="messages" style="color:red"
-          *ngIf="addPlayerForm.get('playerPosition').hasError(validate.type) && (addPlayerForm.get('playerPosition').dirty || addPlayerForm.get('playerPosition').touched)">
-          {{validate.message}}
-        </div>
-        </div>
-    <ion-item>
-        <ion-label position="floating">MM/DD/YYYY</ion-label>
-        <ion-datetime formControlName="DOB" [(ngModel)]="playerNode.DOB" ngDefaultControl displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09"></ion-datetime>
-      
+        
+  <ion-item>
+      <ion-label>Player position</ion-label>
+      <ion-select formControlName="playerPosition"  [(ngModel)]="playerNode.playerPosition" >
+        <ion-select-option *ngFor="let g of position" [value]="g.value">{{g.label}} </ion-select-option>
+      </ion-select>
     </ion-item>
-    <!-- <div class="error" *ngFor="let validate of validation_messages.coachName">
-      <div class="messages" style="color:red"
-        *ngIf="addPlayerForm.get('coachName').hasError(validate.type) && (addPlayerForm.get('coachName').dirty || addPlayerForm.get('coachName').touched)">
-        {{validate.message}}
-      </div>
-    </div> -->
+        <!-- / ================================ -->
+    <ion-item>
+        <ion-label position="floating">Date of Birth</ion-label>
+        <ion-datetime formControlName="DOB" [(ngModel)]="playerNode.DOB" ngDefaultControl displayFormat="MM/DD/YYYY" min="1970-03-14" max="{{date}}"></ion-datetime>
+    </ion-item>
     <!-- / ================================ -->
     <ion-item>
       <ion-input type="text" formControlName="previousTeam" [(ngModel)]="playerNode.previousTeam" ngDefaultControl
@@ -84,8 +75,11 @@
     </div>
 <!-- //
  -->
- <ion-item>
-    <ion-input type="text"  formControlName="Achievements" [(ngModel)]="playerNode.Achievements"
+ <div  formArrayName ="Achievements">
+   <ion-button (click)="addNew()"> add achie</ion-button>
+  <ion-item *ngFor="let ach of Achievements.controls;let i=index">
+    <label > player Achievements {{i+1}} </label>
+    <ion-input type="text"  [formControlName]="i" 
        placeholder="player Achievements"></ion-input>
   </ion-item>
   <div class="error" *ngFor="let validate of validation_messages.Achievements">
@@ -93,7 +87,9 @@
       *ngIf="addPlayerForm.get('Achievements').hasError(validate.type) && (addPlayerForm.get('Achievements').dirty || addPlayerForm.get('Achievements').touched)">
       {{validate.message}}
     </div>
-  </div>    
+  </div>   
+ </div>
+  
     <br>
     <ion-button id="skip" (click)="createTeam(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid"
       ion-button style="width: 50vw; border-radius: 10px; background:#F3E1D5; color: black;position: relative; left: 20% ">
