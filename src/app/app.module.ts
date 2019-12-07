@@ -1,3 +1,4 @@
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -19,7 +20,8 @@ import { Camera } from '@ionic-native/camera/ngx'
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Camera,
-    FCM
+    FCM,
+    NativeStorage
   ],
   bootstrap: [AppComponent]
 })

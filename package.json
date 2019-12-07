@@ -22,6 +22,7 @@
     "@ionic-native/camera": "^5.17.1",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/fcm": "^5.17.1",
+    "@ionic-native/native-storage": "^5.17.1",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.7.1",
@@ -30,6 +31,7 @@
     "cordova-android-play-services-gradle-release": "^4.0.0",
     "cordova-plugin-camera": "4.1.0",
     "cordova-plugin-fcm-with-dependecy-updated": "4.1.1",
+    "cordova-plugin-nativestorage": "2.3.2",
     "core-js": "^2.5.4",
     "firebase": "^7.5.0",
     "node-modules": "^1.0.1",
@@ -140,7 +142,8 @@
         "PLAY-SERVICES-VISION-IMAGE-LABEL": "18.0.0",
         "PLAY-SERVICES-WALLET": "17.0.0",
         "PLAY-SERVICES-WEARABLE": "17.0.0"
-      }
+      },
+      "cordova-plugin-nativestorage": {}
     },
     "platforms": [
       "android"

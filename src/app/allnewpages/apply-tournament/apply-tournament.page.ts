@@ -1,3 +1,4 @@
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -10,6 +11,7 @@ import { AuthSeriveService } from 'src/app/services/auth-serive.service';
   styleUrls: ['./apply-tournament.page.scss'],
 })
 export class ApplyTournamentPage implements OnInit {
+  storageKeys = []
   db = firebase.firestore()
   applytournaments = []
   userObj = {}
@@ -23,7 +25,8 @@ export class ApplyTournamentPage implements OnInit {
     public alertController: AlertController, 
     public authService : AuthSeriveService ,
     public passService : PassInformationService,
-    public loadingController: LoadingController) { }
+    public loadingController: LoadingController,
+    public store: NativeStorage) { }
     async presentLoading() {
       const loading = await this.loadingController.create({
      
@@ -43,11 +46,28 @@ export class ApplyTournamentPage implements OnInit {
     setTimeout(() => {
       console.log('blah bal',  this.userObj);
     }, 1000);
+    this.store.keys().then(res => {
+      res.forEach(element => {
+        this.storageKeys.push(element);
+      });
+      console.log(this.storageKeys);
+      
+    })
 
+  }
+  ionViewWillLeave(){
+   this.storageKeys.forEach(element => {
+     this.store.remove(element).then((res)=>{
+            this.store.setItem(element, 'read').then(res=> {
+       console.log(element, 'updated ');
+       
+     })
+     }).catch(err => {
+       console.log('no key to delete');
+       
+     })
 
-  console.log('blah ++++',this.passService.role);
-
-
+   });
   }
   async presentTeamCreateAlert() {
     const alert = await this.alertController.create({
