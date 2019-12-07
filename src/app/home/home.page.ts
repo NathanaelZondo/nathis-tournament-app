@@ -76,6 +76,9 @@ console.log(m);
 addTeam() {
   this.router.navigateByUrl('add-team');
 }
+viewTournament() {
+  this.router.navigateByUrl('tournament')
+}
 // getUserProfile() {
 //   this.db.collection('members').doc(this.auth.getUser()).get().then(res => {
 //     this.pass.role = res.data().form.role;

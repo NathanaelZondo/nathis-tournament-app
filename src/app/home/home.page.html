@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="cardList ">
-        <div class="card green" *ngFor="let item of temporaryArray" >
+        <div class="card green" *ngFor="let item of temporaryArray" (click)="viewTournament()" >
           <div class="title">
             <h5>Msansi Championship Tournament</h5>
           </div>
@@ -83,6 +83,7 @@
         </div>
       </div>
     </div>
+    
     <div class="finnished">
       <div class="tite">
         <div class="text">

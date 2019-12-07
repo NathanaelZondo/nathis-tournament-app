@@ -1,0 +1,118 @@
+.closer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+.details {
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(rgba(0, 20, 0, 0.733)),url(../../../assets/greenbg.jpg);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    .div {
+        margin: auto;
+    }
+    h5 {
+        margin: 5px 0px;
+    }
+    p {
+        font-size: 3vw;
+        margin: 0;
+    }
+    .sponsors {
+        margin: 5px 0px;
+        padding: 5px 0px;
+        border-top: solid 1px rgba(255, 255, 255, 0.068);
+    }
+}
+.matchList {
+    width: 100%;
+    height: 50%;
+    position: relative;
+    .title {
+        display: flex;
+        align-items: center;
+        .t {
+            padding: 5px;
+        }
+        .line {
+            flex-basis: 96%;
+            .l {
+                width: 100%;
+                height: 2px;
+                background: gray;
+                border-radius: 200px;
+            }
+        }
+    }
+    .list {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 30px;
+        overflow-y: auto;
+        .card {
+            width: 90%;
+            margin: 5px auto;
+            background: linear-gradient(rgb(255, 255, 255));
+            overflow: hidden;
+            border-radius:10px;
+            position: relative;
+            box-shadow: 0px 3px 3px #1717172c;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            
+            .date {
+              width: 100%;
+              background: #387336;
+              border-radius:10px;
+              padding: 5px;
+              color: white;
+              p {
+                margin: 0;
+                padding: 0;
+                font-size: 3vw;
+              }
+            }
+            .aVb {
+              display: flex;
+              justify-content: space-evenly;
+              height: 70px;
+            }
+            .teamAway {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              background: #387336;
+              padding: 4px;
+              border-radius: 0px 10px 0px 10px;
+              color: white;
+              p {
+                margin: 0;
+                padding: 0;
+                font-size: 3vw;
+              }
+            }
+            .teamHome {
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              background: #387336;
+              padding: 4px;
+              border-radius: 10px 0px 10px 0px;
+              color: white;
+              p {
+                margin: 0;
+                padding: 0;
+                font-size: 3vw;
+              }
+            }
+          }
+    }
+}

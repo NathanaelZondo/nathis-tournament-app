@@ -1,37 +1,70 @@
-<ion-header>
-    <ion-toolbar>
-      <ion-title>fixtures</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-grid>
-   
-   
- 
-      
-   
-      <ion-row no-padding class="matrix">
-        <ion-col  class="q1">
-          <div align = "center">Fixtures</div>
-          <ion-list  >
-            <ion-item *ngFor="let item of fixture" [color]="item.color">
-              {{ item.TeamName }} vs {{item.aTeamName}}&nbsp;&nbsp;Date:{{item.matchdate}}&nbsp;&nbsp;Time:{{item.matchtime}}
-            
-              <ion-button (click) ="currentmatch(item)">View Details</ion-button>
-            </ion-item>
-          </ion-list>
-         
-        </ion-col>
-  
-      
-   
-       
-   
-       
-      </ion-row>
-    </ion-grid>
-   
-   
-  </ion-content>
-  
+<ion-content>
+  <div class="closer">
+    <ion-fab-button size="small" fill="clear" (click)="back()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </div>
+  <div class="details">
+<div class="div">
+    <h5>Msansi Championship Tournament</h5>
+    <p>Participants 8</p>
+    <p>FNB Stadium</p>
+    <br>
+    <p>27 Jul, 2019 to 5 Oct 2019</p>
+    <p>R 200.00 fee</p>
+    <p>Top 32</p>
+    <p>Application Closing Date O1 Oct 2019</p>
+    <p>2 Vendors</p>
+    <div class="sponsors">
+      <div class="title"><p>Sponsors</p></div>
+      <img src="https://i1.wp.com/themediaonline.co.za/wp-content/uploads/2018/07/Absa_Logo_Primary_Identity_RGB_Passion-01.jpg?fit=1890%2C1890" width="40px">
+    </div>
+</div>
+  </div>
+  <div class="matchList">
+    <div class="title">
+      <div class="t"><p style="margin: 0;">Matches</p></div>
+      <div class="line">
+        <div class="l"></div>
+      </div>
+    </div>
+    <div class="list">
+        <div class="card" *ngFor="let item of tempCardGen" (click)="viewmatch()">
+            <div class="date">
+              <p>27 Jul, 2019</p>
+            </div>
+            <div class="aVb">
+              <div class="home">
+                <p>Team Name</p>
+              </div>
+              <div class="versus">
+                <p>v</p>
+              </div>
+              <div class="away">
+                <p>Team Name</p>
+              </div>
+            </div>
+            <div class="teamHome">
+              <p>Home</p>
+            </div>
+            <div class="teamAway">
+              <p>Away</p>
+            </div>
+          </div>
+    </div>
+  </div>
+  <!-- <ion-grid>
+    <ion-row no-padding class="matrix">
+      <ion-col class="q1">
+        <div align="center">Fixtures</div>
+        <ion-list>
+          <ion-item *ngFor="let item of fixture" [color]="item.color">
+            {{ item.TeamName }} vs
+            {{item.aTeamName}}&nbsp;&nbsp;Date:{{item.matchdate}}&nbsp;&nbsp;Time:{{item.matchtime}}
+            <ion-button (click)="currentmatch(item)">View Details</ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+</ion-content>

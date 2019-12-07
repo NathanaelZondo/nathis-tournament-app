@@ -68,9 +68,7 @@ status
     this.router.navigateByUrl('login');
   }
   register(){
-// this.router.navigateByUrl('registerpage');
-this.router.navigateByUrl('manage-team');
-
+this.router.navigateByUrl('registerpage');
   }
   manageteam(){
     if(this.status == 'awaiting'){

@@ -8,12 +8,15 @@ import { AllserveService } from 'src/app/allservices/allserve.service';
   styleUrls: ['./tournament.page.scss'],
 })
 export class TournamentPage implements OnInit {
-
+  tempCardGen = [] 
   constructor(public serve:AllserveService,public router:Router,public allserve:AllserveService) { }
 fixture =[];
 obj:any ={};
   ngOnInit() {
+    while (this.tempCardGen.length < 40) {
+      this.tempCardGen.push('card')
 
+    }
     firebase.firestore().collection('MatchFixtures').get().then(res=>{
       res.forEach(val=>{
        
@@ -40,6 +43,10 @@ console.log(item)
 this.allserve.currentmatch =item;
 this.router.navigate(['matchdetails']);
   }
-
-
+  viewmatch() {
+    this.router.navigateByUrl('matchdetails')
+  }
+  back() {
+    this.router.navigateByUrl('home');
+  }
 }

@@ -11,7 +11,13 @@
         </div>
       </div>
       <div class="squadPreview">
-        <div class="card" *ngFor="let item of tempCardArray" >
+        <div class="nopplayer" *ngIf="players.length==0" >
+            <div class="p">
+                <p>No Player in your team. Fill the form then add player.</p>
+                <p><sub>Added Players will be previewed here. Click on card to edit.</sub></p>
+            </div>
+        </div>
+        <div class="card" *ngFor="let item of players" >
           <img src="https://image.businessinsider.com/5c13e188b3c21d151e336e54?width=1200&format=jpeg">
           <div class="details">
             <div>

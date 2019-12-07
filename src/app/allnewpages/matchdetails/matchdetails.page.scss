@@ -1,0 +1,227 @@
+.closer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+.viewPlayer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.37);
+    display: none;
+    align-items: center;
+    z-index: 600;
+    .div {
+        width: 90%;
+        height: 80%;
+        margin: auto;
+        position: relative;
+        background: green;
+        border-radius: 10px;
+        color: white;
+        overflow: hidden;
+        .playerImage {
+            width: 100%;
+            height: 100%;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        .playerDetails {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(20px);
+            border-radius: 10px;
+            padding: 10px;
+            p {
+                margin: 0;
+            }
+        }
+    }
+}
+.details {
+    width: 100%;
+    height: 41%;
+    background: linear-gradient(rgba(0, 20, 0, 0.733)),url(../../../assets/greenbg.jpg);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    .homeData, .middleData, .awayData {
+        width: 32%;
+        .image {
+            width: 20vw;
+            height: 20vw;
+            overflow: hidden;
+            margin: auto;
+            border-radius: 200px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
+.matchList {
+    width: 100%;
+    height: 58%;
+    position: relative;
+    .title {
+        display: flex;
+        position: absolute;
+        top: -18px;
+        left: 0;
+        right: 0;
+        .dtns {
+            width: 50%;
+        }
+    }
+    .list {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 16px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        .lineUps {
+            display: flex;
+            width: 100%;
+            // height: 100%;
+            background: white;
+            position: absolute;
+            .away, .home {
+                height: 100%;
+                overflow-y: auto;
+                width: 50%;
+                padding-top: 10px;
+                .card {
+                    display: flex;
+                    padding: 5px 5px;
+                    border-bottom: solid 2px rgba(0, 0, 0, 0.103);
+                    position: relative;
+                    margin: 12px 0px 10px 39px;
+                    background: rgba(39, 44, 66, 0.021);
+                    .number {
+                        position: absolute;
+                        width: 30px;
+                        height: 30px;
+                        top: -15px;
+                        background: linear-gradient(45deg,green,greenyellow);
+                        border-radius: 10px 10px 0px 10px;
+                        left: -35px;
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        box-shadow: 0px 3px 3px #1717172d;
+                        p {
+                            margin:auto;
+                            padding: 0;
+                            text-shadow: 0px 3px 3px #17171734;
+                        }
+                    }
+                    .number::after {
+                        position: absolute;
+                        width: 10px;
+                        height: 10px;
+                        content: '';
+                        background: red;
+                        right: -10px;
+                        bottom: 0;
+                        clip-path: polygon(0% 100%, 50% 50%, 100% 100%, 0% 0%);
+                        background: inherit;
+                    }
+                    .name {
+                        flex-basis: 90%;
+                        p {
+                            margin: 0;
+                            padding: 0;
+                        }
+                    }
+                    .position {
+                        display: flex;
+                        align-items: center;
+                        p {
+                            margin: 0;
+                            padding: 0;
+                            font-size: .6rem;
+                        }
+                    }
+                }
+            }
+        }
+        .summary {
+            background: white;
+            width: 100%;
+            height: 100%;
+            .stats {
+                display: flex;
+                // justify-content: center;
+                .labels {
+                    width: 80%;
+                    text-align: center;
+                }
+                .homeSummary, .awaySummary {
+                    width: 10%;
+                    text-align: center;
+                }
+            }
+            .playerCards {
+                width: 90%;
+                margin: auto;
+                height: 50%;
+                display: flex;
+                border-top: solid 1px rgb(223, 223, 223);
+                .homePlayerCards, .awayPlayerCards {
+                    width: 50%;
+                    height: 100%;
+                    border-left: solid 1px rgb(223, 223, 223);
+                    display: flex;
+                    flex-wrap: wrap;
+                    overflow-y: auto;
+                    .card {
+                        width: 95%;
+                        margin: 5px auto;
+                        border-radius: 10px;
+                        box-shadow: 0px 3px 3px #1717173d;
+                        padding: 10px;
+                        display: flex;
+                        align-content: center;
+                        align-items: center;
+                        justify-content: center;
+                        .redCard {
+                            width: 20px;
+                            height: 30px;
+                            background: red;
+                            border-radius: 5px;
+                        }
+                        .yellowCard {
+                            width: 20px;
+                            height: 30px;
+                            background: yellow;
+                            border-radius: 5px;
+                        }
+                        .details {
+                            padding: 5px;
+                            background: white;
+                            p {
+                                color: rgb(0, 0, 0);
+                                font-size: .8rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

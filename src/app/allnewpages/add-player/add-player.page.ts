@@ -34,17 +34,17 @@ export class AddPlayerPage implements OnInit {
   TjerseyImage
   counter: number;
   position = [
-    { value: 'Goalkeeper', label: 'Goalkeeper' },
-    { value: 'Right Fullback', label: 'Right Fullback' },
-    { value: 'Left Fullback', label: 'Left Fullback' },
-    { value: 'Center Back', label: 'Center Back' },
-    { value: 'Center Back (Sweeper)', label: 'Center Back(Sweeper)' },
-    { value: 'Defending/Holding Midfielder', label: 'Defending/Holding Midfielder' },
-    { value: 'Right Midfielder/Winger', label: 'Right Midfielder/Winger' },
-    { value: 'Central/Box-to-Box Midfielder', label: 'Central/Box-to-Box Midfielder' },
-    { value: 'Striker', label: 'Striker' },
-    { value: 'Attacking Midfielder/Playmaker', label: 'Attacking Midfielder/Playmaker' },
-    { value: 'Left Midfielder/Wingers', label: 'Left Midfielder/Wingers' }];
+    { value: 'Goalkeeper', label: '1 Goalkeeper' },
+    { value: 'Right Fullback', label: '2 Right Fullback' },
+    { value: 'Left Fullback', label: '3 Left Fullback' },
+    { value: 'Center Back', label: '4 Center Back' },
+    { value: 'Center Back (Sweeper)', label: '5 Center Back(Sweeper)' },
+    { value: 'Defending/Holding Midfielder', label: '6 Defending/Holding Midfielder' },
+    { value: 'Right Midfielder/Winger', label: '7 Right Midfielder/Winger' },
+    { value: 'Central/Box-to-Box Midfielder', label: '8 Central/Box-to-Box Midfielder' },
+    { value: 'Striker', label: '9 Striker' },
+    { value: 'Attacking Midfielder/Playmaker', label: '10 Attacking Midfielder/Playmaker' },
+    { value: 'Left Midfielder/Wingers', label: '11 Left Midfielder/Wingers' }];
   validation_messages = {
     'fullName': [
       { type: 'required', message: 'Name is required.' },

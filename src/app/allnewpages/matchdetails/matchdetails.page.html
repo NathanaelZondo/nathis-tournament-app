@@ -1,162 +1,302 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>match</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-    <ion-grid *ngFor = "let x of cmatch">
-        <ion-row>
-            <ion-col>
-      HOME
-            </ion-col>
-            <ion-col>
-             AWAY
-            </ion-col>
-        </ion-row>
-      <ion-row>
-        <ion-col>
-  {{x.TeamName}}
-        </ion-col>
-        <ion-col>
-          {{x.aTeamName}}
-        </ion-col>
-     
-      </ion-row>
-      <ion-row>
-        <ion-col>
-  {{score}}
-        </ion-col>
-        <ion-col>
-          {{ascore}}
-        </ion-col>
-     
-      </ion-row>
-      <ion-row>
-        Timer:{{x.mins}}:{{timer}}
-      </ion-row>
+  <!-- <ion-grid *ngFor="let x of cmatch">
+    <ion-row>
+      <ion-col>
+        HOME
+      </ion-col>
+      <ion-col>
+        AWAY
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{x.TeamName}}
+      </ion-col>
+      <ion-col>
+        {{x.aTeamName}}
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{score}}
+      </ion-col>
+      <ion-col>
+        {{ascore}}
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+      Timer:{{x.mins}}:{{timer}}
+    </ion-row>
   </ion-grid>
+  <ion-grid *ngFor="let x of matchstats">
 
-  <ion-grid *ngFor = "let x of matchstats">
- 
-      <ion-row>
-         <ion-col> Shots </ion-col>
-        <ion-col>
-       {{x.shots}}
-        </ion-col>
-        <ion-col>
-       {{x.ashots}}
-        </ion-col>
-     
-      </ion-row>
-      <ion-row>
-       <ion-col> Shots on Target</ion-col>
-        <ion-col>
-    {{x.ontarget}}
-        </ion-col>
-        <ion-col>
-          {{x.ontarget}}
-        </ion-col>
-     
-      </ion-row>
-      <ion-row>
-        <ion-col>Fouls</ion-col>
-          <ion-col>
-      {{x.fouls}}
-          </ion-col>
-          <ion-col>
-            {{x.afouls}}
-          </ion-col>
-       
-    
-    
-        </ion-row>
-    
-        <ion-row>
-         <ion-col> Yellow Cards</ion-col>
-            <ion-col>
+    <ion-row>
+      <ion-col> Shots </ion-col>
+      <ion-col>
+        {{x.shots}}
+      </ion-col>
+      <ion-col>
+        {{x.ashots}}
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+      <ion-col> Shots on Target</ion-col>
+      <ion-col>
+        {{x.ontarget}}
+      </ion-col>
+      <ion-col>
+        {{x.ontarget}}
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+      <ion-col>Fouls</ion-col>
+      <ion-col>
+        {{x.fouls}}
+      </ion-col>
+      <ion-col>
+        {{x.afouls}}
+      </ion-col>
+
+
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col> Yellow Cards</ion-col>
+      <ion-col>
         {{x.yellow}}
-            </ion-col>
-            <ion-col>
-              {{x.ayellow}}
-            </ion-col>
-         
-          </ion-row>
-    
-          <ion-row>
-           <ion-col> Red Cards</ion-col>
-              <ion-col>
-          {{x.red}}
-              </ion-col>
-              <ion-col>
-                {{x.ared}}
-              </ion-col>
-           
-            </ion-row>
-    
-    
-            <ion-row>
-             <ion-col> OffSides</ion-col>
-                <ion-col>
-            {{x.off}}
-                </ion-col>
-                <ion-col>
-                  {{x.aoff}}
-                </ion-col>
-             
-              </ion-row>
-    
-    
-              <ion-row>
-               <ion-col>Corners</ion-col> 
-                  <ion-col>
-              {{x.corner}}
-                  </ion-col>
-                  <ion-col>
-                    {{x.acorner}}
-                  </ion-col>
-               
-                </ion-row>
-    
+      </ion-col>
+      <ion-col>
+        {{x.ayellow}}
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col> Red Cards</ion-col>
+      <ion-col>
+        {{x.red}}
+      </ion-col>
+      <ion-col>
+        {{x.ared}}
+      </ion-col>
+
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col> OffSides</ion-col>
+      <ion-col>
+        {{x.off}}
+      </ion-col>
+      <ion-col>
+        {{x.aoff}}
+      </ion-col>
+
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>Corners</ion-col>
+      <ion-col>
+        {{x.corner}}
+      </ion-col>
+      <ion-col>
+        {{x.acorner}}
+      </ion-col>
+
+    </ion-row>
+
+
+
+
+  </ion-grid>
+  <ion-grid>
+    <ion-row *ngFor="let v of goals">
+
+      <ion-col size="3">
+        <p>Home Goals </p>
+        <p> {{v.goalscorer}}&nbsp; {{v.scoretime}}</p>
+
+      </ion-col>
+
+    </ion-row>
+    <ion-row *ngFor="let v of goals">
+
+      <ion-col size="3">
+        <p>Away Goals </p>
+        <p> {{v.goalscorer}}&nbsp; {{v.scoretime}}</p>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid> -->
+  <div class="viewPlayer animated" [ngClass]="{'bounceInUp':playerView,'bounceOutDown':!playerView}" >
+    <div class="div">
+      <div class="playerImage">
+        <img src="https://images.complex.com/complex/images/c_limit,dpr_auto,q_90,w_720/fl_lossy,pg_1/vuwd3pxby9jvxrqks4kh/most-famous-soccer-neymar">
+      </div>
+      <div class="playerDetails">
+        <h4>Tobba Yiouri</h4>
+        <p><b>28 Jul, 1993</b></p>
+        <p>Defender</p>
+        <p>3m tall</p>
+        <p>Played for Yarn Team</p>
+        <p>Best Scorer</p>
+        <ion-button (click)="viewPlayer('close', 'home', 'object')" size="small" fill="outline" shape="round" color="light" style="margin: auto;">
+          Done
+        </ion-button>
+      </div>
+    </div>
+  </div>
+      <div class="closer">
+        <ion-fab-button size="small" fill="clear" (click)="back()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-fab-button>
+      </div>
+      <div class="details">
+        <div class="homeData">
+          <div class="image">
+            <img src="https://i1.wp.com/themediaonline.co.za/wp-content/uploads/2018/07/Absa_Logo_Primary_Identity_RGB_Passion-01.jpg?fit=1890%2C1890" alt="">
             
-    
-      
-    </ion-grid>
-
-
-
-
-
-
-
-    <ion-grid >
-      <ion-row *ngFor = "let v of goals">
-       
-     <ion-col size="3">
-        <p>Home Goals </p> 
-           <p> {{v.goalscorer}}&nbsp; {{v.scoretime}}</p>
-      
-     </ion-col>
-
-            </ion-row>
-
-
-            <ion-row *ngFor = "let v of goals">
-       
-                <ion-col size="3">
-                   <p>Away Goals </p> 
-                      <p> {{v.goalscorer}}&nbsp; {{v.scoretime}}</p>
-                 
-                </ion-col>
-           
-                       </ion-row>
-                </ion-grid>
-
+          </div>
+          <p>Team Name</p>
+        </div>
+        <div class="middleData">
+          <p>v</p>
+          <h1>0 : 0</h1>
+          <p>25 min</p>
+        </div>
+        <div class="awayData">
+            <div class="image">
+                <img src="https://i1.wp.com/themediaonline.co.za/wp-content/uploads/2018/07/Absa_Logo_Primary_Identity_RGB_Passion-01.jpg?fit=1890%2C1890" alt="">
                 
+              </div>
+              <p>Team Name</p>
+        </div>
+      </div>
+      <div class="matchList">
+        <div class="title">
+          <div class="dtns">
+  <ion-button expand="full" size="small" shape="round" (click)="segmentChanged('lineup')">
+           LineUp
+         </ion-button >
+          </div>
+          <div class="dtns">
+              <ion-button (click)="segmentChanged('summary')"  expand="full" size="small" shape="round" >
+            Summary
+          </ion-button>
+            </div>
+       
+       
+        </div>
+        <div class="list">
+            <div class="lineUps animated"
+              [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
+              <div class="away">
+                <div class="card" *ngFor="let a of tempArray" (click)="viewPlayer('open', 'home', 'object')">
+                  <div class="number">
+                    <p>30'</p>
+                  </div>
+                  <div class="name">
+                    <p>Alan Bakes</p>
+                  </div>
+                  <div class="position">
+                    <p>Defender</p>
+                  </div>
+                </div>
+              </div>
+              <div class="home">
+                <div class="card" *ngFor="let a of tempArray" (click)="viewPlayer('open', 'away', 'object')">
+                  <div class="number">
+                    <p>30'</p>
+                  </div>
+                  <div class="name">
+                    <p>Alan Bakes</p>
+                  </div>
+                  <div class="position">
+                    <p>Defender</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="summary animated"
+              [ngClass]="{'slideInRight':matchView=='summary','slideOutRight':matchView=='lineup'}">
+              <div class="stats">
+                <div class="homeSummary">
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                </div>
+                <div class="labels">
+                  <p>Attacks</p>
+                  <p>Corners</p>
+                  <p>Off Target</p>
+                  <p>Red Cards</p>
+                  <p>Yellow Cards</p>
+                  <p>Penalties</p>
+                </div>
+                <div class="awaySummary">
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                </div>
+              </div>
+              <div class="playerCards">
+                <div class="homePlayerCards">
+                  <div class="card" *ngFor="let item of tempArray">
+                    <div class="redCard">
 
+                    </div>
+                    <div class="yellowCard">
 
+                    </div>
+                    <div class="details">
+                      <p>Semonye - 3:45</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="awayPlayerCards">
+                  <div class="card" *ngFor="let item of tempArray">
+                    <!-- an ngif is required to show if the player got a red or a yellow card for punnishment -->
+                    <div class="redCard">
 
+                    </div>
+                    <div class="yellowCard">
 
-
-
+                    </div>
+                    <div class="details">
+                      <p>Semonye - 3:45</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <!-- <ion-grid>
+        <ion-row no-padding class="matrix">
+          <ion-col class="q1">
+            <div align="center">Fixtures</div>
+            <ion-list>
+              <ion-item *ngFor="let item of fixture" [color]="item.color">
+                {{ item.TeamName }} vs
+                {{item.aTeamName}}&nbsp;&nbsp;Date:{{item.matchdate}}&nbsp;&nbsp;Time:{{item.matchtime}}
+                <ion-button (click)="currentmatch(item)">View Details</ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid> -->
+    
 </ion-content>

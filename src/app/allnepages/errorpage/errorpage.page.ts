@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-errorpage',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorpagePage implements OnInit {
 
-  constructor() { }
+  constructor(public NavCtrl: NavController) { }
 
   ngOnInit() {
   }
-
+  back() {
+    this.NavCtrl.navigateBack('home')
+  }
 }

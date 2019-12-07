@@ -83,8 +83,7 @@ export class RegisterpagePage {
   }
 ​
   addUser(form){
-    let dontRegister = false;
-    if (dontRegister) {
+
       let number =  this.phoneNumber.substr(1)
     this.lastNum = '+' + 27 + number;
     console.log(number, ' s',);
@@ -116,8 +115,7 @@ export class RegisterpagePage {
       
       }
     })
-    }
-    this.route.navigateByUrl('add-team')
+    
   }
 ​
   async alert(form){
