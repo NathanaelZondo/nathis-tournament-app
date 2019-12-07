@@ -33,6 +33,8 @@ export class AddPlayerPage implements OnInit {
   GJerseyImage
   TjerseyImage
   counter: number;
+  documentID
+  
   position = [
     { value: 'Goalkeeper', label: '1 Goalkeeper' },
     { value: 'Right Fullback', label: '2 Right Fullback' },
@@ -93,7 +95,7 @@ export class AddPlayerPage implements OnInit {
 
   }
   ngOnInit() {
-
+this.getTeam()
   }
   get Achievements() {
     return this.addPlayerForm.get('Achievements') as FormArray
@@ -101,8 +103,58 @@ export class AddPlayerPage implements OnInit {
   addNew() {
     this.Achievements.push(this.formBuilder.control(''));
   }
+  edit(i){
+console.log('ccc',i);
+this.buttonChange = true
+this.documentID = i.docid
+this.playerNode.fullName = i.docdata.fullName
+this.playerNode.DOB = i.docdata.DOB
+this.playerNode.height = i.docdata.height
+this.playerNode.playerPosition = i.docdata.playerPosition
+this.playerNode.previousTeam = i.docdata.previousTeam
 
+  }
+  remove(){
+    this.Achievements.removeAt(this.Achievements.length - 1)
+  }
+ async editPlayer(){
+    const load = await this.loadingController.create({
+      message: 'Creating Your Player..'
+    });
+    const user = this.db.collection('Teams').doc(firebase.auth().currentUser.uid).collection('Players').doc(this.documentID).set(this.playerNode)
 
+    // upon success...
+    user.then(async() => {
+      this.buttonChange = false
+      this.playerNode = {
+        fullName: '',
+        palyerImage: '',
+        DOB : '',
+        previousTeam : '',
+        DateCreated : null,
+        DateEdited : null,
+        playerPosition: '',
+        height: '',
+        Achievements: []
+      }
+      this.router.navigateByUrl('add-player')
+      const toast = await this.toastController.create({
+        message: 'User Team added.',
+        duration: 2000,
+
+      });
+      toast.present();
+      load.dismiss();
+      // catch any errors.
+    }).catch(async err => {
+      const toast = await this.toastController.create({
+        message: 'Error creating Team.',
+        duration: 2000
+      })
+      toast.present();
+      load.dismiss();
+    })
+  }
   async createTeam(addPlayerForm: FormGroup): Promise<void> {
     if (!addPlayerForm.valid) {
       addPlayerForm.value

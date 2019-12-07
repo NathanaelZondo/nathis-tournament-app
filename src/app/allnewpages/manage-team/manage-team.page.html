@@ -8,38 +8,39 @@
         </ion-fab-button>
       </div>
       <div class="t">
-        <h5>Team Name</h5>
+        <h5>{{display.teamName}}</h5>
       </div>
     </div>
     <div class="details">
-      <div class="d"><p>Based in Region</p>
-        <p>0123654789</p></div>
+      <div class="d"><p>{{display.region}}</p>
+        <p>{{display.tel}}</p></div>
     </div>
   </div>
   <div class="teamList">
     <div class="label">
       <p>Squad</p>
-      <ion-button style="margin: 0;" size="small" shape="round" (click)="addPlayer()"> Add Team </ion-button>
+      <ion-button style="margin: 0;" size="small" shape="round" (click)="addPlayer()"> Manage </ion-button>
     </div>
     <div class="list">
-  <div *ngIf=" isTeam">
-    no team please add team <ion-button size="small" shape="round" (click)="addTeam()"> add team</ion-button>
-  </div>
-  <div *ngIf="!isTeam">
+
+  <div >
     <p>
       {{display.teamName}}
     </p>
 
-        <div class="card" *ngFor="let item of players" (click)="viewPlayer()">
+        <div class="card" *ngFor="let i of players" (click)="viewPlayer()">
             <img src="https://image.businessinsider.com/5c13e188b3c21d151e336e54?width=1200&format=jpeg">
             <div class="details">
               <div>
-                  <p style="font-size: 4vw;"><b>Tobba Yiuri</b></p>
+                  <p style="font-size: 4vw;"><b>{{i.fullName}}</b></p>
+                  <p><b>{{i.DOB | date}}</b></p>
+                  <p>{{i.position}}</p>
+                  <!-- <p style="font-size: 4vw;"><b></b></p>
                   <p><b>28 Jul, 1992</b></p>
                   <p>Defender</p>
                   <p>3 m tall</p>
                   <p>Played for Droggo Team</p>
-                  <p>Best Defender</p>
+                  <p>Best Defender</p> -->
               </div>
             </div>
           </div>

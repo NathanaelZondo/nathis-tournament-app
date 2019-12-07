@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import * as firebase from 'firebase'
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -20,7 +20,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router : Router,
-    private pass : PassInformationService
+    private pass : PassInformationService,
+    public ngZone: NgZone
   ) {
     firebase.initializeApp(config)
     this.initializeApp();
@@ -31,17 +32,20 @@ export class AppComponent {
         
         unsubscribe();
       } else {
-        this.router.navigateByUrl("/home");
-        console.log('logged in');
-        firebase.firestore().collection('members').doc(user.uid).get().then(res =>{
-          this.pass.role = res.data().form.role;
-     
-    
-           console.log('role',  this.pass.role );
-      
-        });
-        unsubscribe();
-      }
+this.ngZone.run(()=>{
+  this.router.navigateByUrl("/home");
+  console.log('logged in');
+  firebase.firestore().collection('members').doc(user.uid).get().then(res =>{
+    if(res.exists){
+      this.pass.role = res.data().form.role;
+      console.log('role',  this.pass.role );
+    }
+ 
+
+  });
+  unsubscribe();
+})
+  }
     });
   }
 
