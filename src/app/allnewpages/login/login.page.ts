@@ -72,6 +72,7 @@ export class LoginPage implements OnInit {
     // this.phoneNumber = this.registrationForm.get('phoneNumber').value
     // this.fullName = this.registrationForm.get('fullName').value
     // this.role = this.registrationForm.get('role').value
+    this.presentLoading();
     let number =  this.phoneNumber.substr(1)
     this.lastNum = '+' + 27 + number;
     console.log(number, ' s',);

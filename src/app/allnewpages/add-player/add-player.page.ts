@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-player',
@@ -77,7 +77,8 @@ export class AddPlayerPage implements OnInit {
     private camera: Camera,
     public loadingController: LoadingController,
     private router: Router,
-    public toastController: ToastController) {
+    public toastController: ToastController,
+    public navctrl  : NavController) {
 
     let v = new Date
     this.date = v.getFullYear() - 8
@@ -96,6 +97,9 @@ export class AddPlayerPage implements OnInit {
   }
   ngOnInit() {
 this.getTeam()
+  }
+  back(){
+    this.navctrl.pop()
   }
   get Achievements() {
     return this.addPlayerForm.get('Achievements') as FormArray
@@ -275,6 +279,6 @@ this.playerNode.previousTeam = i.docdata.previousTeam
 
   }
   done() {
-    this.router.navigateByUrl('manage-team');
+    this.navctrl.pop()
   }
 }

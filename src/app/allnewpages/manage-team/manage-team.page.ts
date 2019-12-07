@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-manage-team',
   templateUrl: './manage-team.page.html',
@@ -14,11 +15,13 @@ db = firebase.firestore();
 display = {}
 isPlayer = false
 players = []
-  constructor(    private formBuilder: FormBuilder, public router : Router) { 
+  constructor(    private formBuilder: FormBuilder, public router : Router,public navctrl : NavController) { 
  
     
   }
-
+  back(){
+    this.navctrl.pop()
+  }
   ngOnInit() {
     while (this.players.length < 10) {
       this.players.push('card')
