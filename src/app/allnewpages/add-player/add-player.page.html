@@ -2,7 +2,7 @@
 <div class="container">
     <div class="title">
         <div class="back">
-          <ion-fab-button size="small" color="clear" style="margin: 0;">
+          <ion-fab-button (click)="back()" size="small" color="clear" style="margin: 0;">
             <ion-icon name="arrow-back"></ion-icon>
           </ion-fab-button>
         </div>
@@ -17,8 +17,8 @@
                 <p><sub>Added Players will be previewed here. Click on card to edit.</sub></p>
             </div>
         </div>
-        <div class="card" *ngFor="let item of players" >
-          <img src="https://image.businessinsider.com/5c13e188b3c21d151e336e54?width=1200&format=jpeg">
+        <div class="card" *ngFor="let i of players" (click)="edit(i)" >
+          <img src="https://firebasestorage.googleapis.com/v0/b/nathistournamentdb.appspot.com/o/Teams-Jersey-image%2FJrIZfJOXOSgYBys2MgJ7RJg88y521575639021.jpg?alt=media&token=38fae9bb-952a-447b-9c56-812e336d56c7">
           <div class="details">
             <div>
                 <p style="font-size: 4vw;"><b>{{i.docdata.fullName}}</b></p>

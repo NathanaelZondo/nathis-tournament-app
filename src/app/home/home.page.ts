@@ -62,6 +62,7 @@ ngOnInit(){
   this.ngZone.run(()=>{
     this.auth.setUser(this.user);
     // this.getUserProfile();
+    this.getUser();
   })
   while (this.temporaryArray.length < 20) {
     this.temporaryArray.push('card')
@@ -86,4 +87,25 @@ viewTournament() {
     
 //   })
 // }
+getUser(){
+  this.ngZone.run(()=>{
+  
+  firebase.auth().onAuthStateChanged(state =>{
+    if(state){
+      firebase.firestore().collection('members').doc(state.uid).get().then(res =>{
+        if(res.exists){
+          this.pass.role = res.data().form.role;
+          console.log('role',  this.pass.role );
+        }
+      });
+    }else{
+      console.log('no state found');
+      
+    }
+ 
+  })
+
+  
+  })
+}
 }

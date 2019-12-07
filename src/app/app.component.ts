@@ -35,14 +35,12 @@ export class AppComponent {
 this.ngZone.run(()=>{
   this.router.navigateByUrl("/home");
   console.log('logged in');
-  firebase.firestore().collection('members').doc(user.uid).get().then(res =>{
-    if(res.exists){
-      this.pass.role = res.data().form.role;
-      console.log('role',  this.pass.role );
-    }
- 
-
-  });
+  // firebase.firestore().collection('members').doc(user.uid).get().then(res =>{
+  //   if(res.exists){
+  //     this.pass.role = res.data().form.role;
+  //     console.log('role',  this.pass.role );
+  //   }
+  // });
   unsubscribe();
 })
   }
