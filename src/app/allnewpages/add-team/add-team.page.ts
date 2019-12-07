@@ -50,7 +50,7 @@ export class AddTeamPage implements OnInit {
 
   ngOnInit() { }
   async createTeam(addTeamForm: FormGroup): Promise<void> {
-    /*
+
 if (!addTeamForm.valid) {
       addTeamForm.value
     }
@@ -88,8 +88,8 @@ if (!addTeamForm.valid) {
         load.dismiss();
       })
     }
-    */
-    this.router.navigateByUrl('add-player')
+    
+  
   }
 
   //Functions to upload images

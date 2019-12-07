@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { menuController } from '@ionic/core';
@@ -25,13 +25,14 @@ temporaryArray = []
     public popoverController: PopoverController,
     public pass : PassInformationService, 
     public auth: AuthSeriveService,
-    public fcm: FCM) {
+    public fcm: FCM,
+    public ngZone: NgZone) {
 
 // this.router.navigate(['tournament']);
 // console.log('uid',firebase.auth().currentUser.uid);
 // this.getUserProfile()
 // this.user = firebase.auth().currentUser.uid
-this.auth.setUser(this.user);
+
 
   }
 async  popover(){
@@ -58,20 +59,18 @@ getToken(){
   
 }
 ngOnInit(){
+  this.ngZone.run(()=>{
+    this.auth.setUser(this.user);
+    // this.getUserProfile();
+  })
   while (this.temporaryArray.length < 20) {
     this.temporaryArray.push('card')
   }
-  // this.getUserProfile();
+
   this.getToken();
   setTimeout(() => {
     console.log('home', this.pass.role);
   }, 500);
-
-  let v = new Date
- let m =  v.getFullYear() - 5
-console.log(m);
-
-  
 }
 addTeam() {
   this.router.navigateByUrl('add-team');
@@ -80,7 +79,7 @@ addTeam() {
 //   this.db.collection('members').doc(this.auth.getUser()).get().then(res => {
 //     this.pass.role = res.data().form.role;
 //    this.pass.profile = res.data()
-//     console.log('role',this.role);
+//     console.log('mmmmm',this.role);
     
 //   })
 // }

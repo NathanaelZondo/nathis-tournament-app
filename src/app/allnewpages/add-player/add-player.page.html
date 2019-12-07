@@ -11,22 +11,23 @@
         </div>
       </div>
       <div class="squadPreview">
-        <div class="card" *ngFor="let item of tempCardArray" >
+        <div class="card" *ngFor="let i of players"  (click)="edit(i)">
           <img src="https://image.businessinsider.com/5c13e188b3c21d151e336e54?width=1200&format=jpeg">
           <div class="details">
             <div>
-                <p style="font-size: 4vw;"><b>Tobba Yiuri</b></p>
-                <p><b>28 Jul, 1992</b></p>
-                <p>Defender</p>
-                <p>3 m tall</p>
-                <p>Played for Droggo Team</p>
-                <p>Best Defender</p>
+                <p style="font-size: 4vw;"><b>{{i.docdata.fullName}}</b></p>
+                <p><b>{{i.docdata.DOB | date}}</b></p>
+                <p>{{i.docdata.playerPosition}}</p>
+                <p>{{i.docdata.height}}</p>
+                <p>{{i.docdata.previousTeam}}</p>
+                <p >{{i.docdata.Achievements}}</p>
+                <!-- <p *ngIf="i.docdata.Achievements.length>0"><li *ngFor="let F of i.docdata.Achievements" >{{F}}</li></p> -->
             </div>
           </div>
         </div>
       </div>
     
-      <div class="backimage" >
+      <div class="backimage" >  
         
         <img *ngIf="playerNode.palyerImage"  src="{{playerNode.palyerImage}}" class="bimage">
         <div class="btn" *ngIf="!playerNode.palyerImage">
@@ -74,7 +75,7 @@
         <!-- /
          -->
         <ion-item>
-            <ion-label position="floating">Contact Number</ion-label>
+            <ion-label position="floating">Height</ion-label>
           <ion-input type="tel" maxLength="10" formControlName="height" [(ngModel)]="playerNode.height"></ion-input>
         </ion-item>
         <div class="error" *ngFor="let validate of validation_messages.height">
@@ -94,7 +95,7 @@
             <ion-label position="floating">Achievement <ion-badge color="primary"> {{i+1}}</ion-badge> </ion-label>
             <ion-input type="text" [formControlName]="i"></ion-input>
             <div class="closer">
-                <ion-button size="small" color="danger" shape="round">
+                <ion-button (click)="remove()" size="small" color="danger" shape="round">
                     <ion-icon slot="icon-only" name="close"></ion-icon>
                   </ion-button>
             </div>
@@ -105,9 +106,12 @@
         <div class="subButton" style="width: 100%;">
           <div class="btn" style="text-align: center;">
               
-             <ion-button color="success" shape="round" id="skip" (click)="createTeam(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid" ion-button
+             <ion-button *ngIf="!buttonChange" color="success" shape="round" id="skip" (click)="createTeam(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid" ion-button
           >
           Add Player</ion-button>
+          <ion-button *ngIf="buttonChange" color="success" shape="round" id="skip" (click)="editPlayer(addPlayerForm)" type="submit" [disabled]="!addPlayerForm.valid" ion-button
+          >
+          Edit Player</ion-button>
           <ion-button color="clear" shape="round" id="skip" (click)="done()" type="submit"  ion-button
               >
               Done</ion-button>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { RegisterFormComponent } from 'src/app/components/register-form/register-form.component';
 import { UserCredential } from 'src/app/Models/user';
 import { AuthSeriveService } from 'src/app/services/auth-serive.service';
@@ -21,36 +21,37 @@ export class RegisterpagePage {
   smsSent
   confirmationResult = ''
   inputCode
-  fullName 
-  uid 
-  role 
+  fullName
+  uid
+  role
   db = firebase.firestore()
   public recaptchaVerifier: firebase.auth.RecaptchaVerifier
-  Profile ={
-    number : '',
-    fullName : '',
-    uid : '',
-    role :''
+  Profile = {
+    number: '',
+    fullName: '',
+    uid: '',
+    role: ''
 
   }
-  constructor(  
+  constructor(
     public authService: AuthSeriveService,
     public formBuilder: FormBuilder,
     public alertController: AlertController,
-    public route :Router,
-    public loadingController: LoadingController
+    public route: Router,
+    public loadingController: LoadingController,
+    public ngZone: NgZone
 
-    ) {
-      this.smsSent = false
-​
-      firebase.auth().languageCode = 'en';
-​
-  this.registrationForm = formBuilder.group({
-    phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])],
-    fullName:['', Validators.required],
-    role:['', Validators.required],
-  })
-​
+  ) {
+    this.smsSent = false
+
+    firebase.auth().languageCode = 'en';
+
+    this.registrationForm = formBuilder.group({
+      phoneNumber: [this.phoneNumber, Validators.compose([Validators.required])],
+      fullName: ['', Validators.required],
+      role: ['', Validators.required],
+    })
+
   }
   ngOnInit() {
     // firebase.auth().onAuthStateChanged(res => {
@@ -60,67 +61,67 @@ export class RegisterpagePage {
     //   }
     // });
   }
- 
-  requestCode(){
+
+  requestCode() {
     // this.phoneNumber = this.registrationForm.get('phoneNumber').value
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
     console.log(window.recaptchaVerifier);
     let appVerifier = window.recaptchaVerifier
     return this.authService.requestLogin(this.lastNum, appVerifier).then(result => {
-      if(result.success === true){
+      if (result.success === true) {
         console.log(result);
         this.confirmationResult = result.result
         console.log(this.confirmationResult);
       }
     })
   }
-  logins(code){
-    if(this.confirmationResult !== ''){
+  logins(code) {
+    if (this.confirmationResult !== '') {
       return this.authService.login(code, this.confirmationResult).then(result => {
         console.log(result);
       })
     }
   }
-​
-  addUser(form){
-    let dontRegister = false;
-    if (dontRegister) {
-      let number =  this.phoneNumber.substr(1)
+
+  addUser(form) {
+    this.presentLoading2()
+
+    let number = this.phoneNumber.substr(1)
     this.lastNum = '+' + 27 + number;
-    console.log(number, ' s',);
-    
+    console.log(number, ' s');
+
     // this.phoneNumber = this.registrationForm.get('phoneNumber').value
     this.fullName = this.registrationForm.get('fullName').value
     this.role = this.registrationForm.get('role').value
 
-// this.lastNum = form.phoneNumber
-    console.log('object',this.lastNum );
+    // this.lastNum = form.phoneNumber
+    console.log('object', this.lastNum);
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
       size: 'invisible',
       callback: (response) => {
         console.log('checking here');
       },
       'expired-callback': () => {
-        
+
       }
     });
     console.log(window.recaptchaVerifier);
     let appVerifier = window.recaptchaVerifier
     return this.authService.requestLogin(this.lastNum, appVerifier).then(result => {
-      if(result.success === true){
+      if (result.success === true) {
         console.log(result);
         this.confirmationResult = result.result
         console.log(this.confirmationResult);
-      
-       this.alert(form);
-      
+
+        this.alert(form);
+
       }
     })
-    }
-    this.route.navigateByUrl('add-team')
+
+    // this.route.navigateByUrl('add-team')
   }
-​
-  async alert(form){
+
+  async alert(form) {
     const alert = await this.alertController.create({
       header: 'Verfification code',
       // subHeader: 'Enter verification code',
@@ -138,38 +139,50 @@ export class RegisterpagePage {
         handler: (result) => {
           console.log(result.code);
           this.logins(result.code);
-          firebase.auth().onAuthStateChanged(res =>{
-  
-            if(res.uid ){
-this.db.collection('members').doc(res.uid).set({form, status: 'awaiting'})
-              console.log('see ',res.uid);
-            }
+          this.ngZone.run(() => {
+            firebase.auth().onAuthStateChanged(res => {
+              if (res.uid) {
+                this.db.collection('members').doc(res.uid).set({ form, status: 'awaiting' })
+                console.log('see ', res.uid);
+              }
+            })
+            this.presentLoading()
+            this.route.navigateByUrl('/home');
           })
-this.presentLoading()
-          this.route.navigateByUrl('/home');
         }
       }]
     });
     await alert.present();
   }
-​
-  login(){
+
+  login() {
     this.phoneNumber = this.registrationForm.get('phoneNumber').value
-        console.log(this.phoneNumber)
+    console.log(this.phoneNumber)
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
     console.log(window.recaptchaVerifier);
     let appVerifier = window.recaptchaVerifier
     firebase.auth().signInWithPhoneNumber(String(this.phoneNumber), appVerifier).then(confirmationResult => {
-      window.confirmationResult = confirmationResult;  
+      window.confirmationResult = confirmationResult;
     }).catch((error) => {
       console.log(error)
     });
   }
-  
+
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'Loging In',
       duration: 2000
+    });
+    await loading.present();
+
+    // const { role, data } = await loading.onDidDismiss();
+
+    // console.log('Loading dismissed!');
+  }
+  async presentLoading2() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait',
+      duration: 3000
     });
     await loading.present();
 

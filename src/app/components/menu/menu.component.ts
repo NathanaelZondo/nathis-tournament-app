@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { AuthSeriveService } from 'src/app/services/auth-serive.service';
@@ -22,7 +22,8 @@ status
     private authservice: AuthSeriveService,
     public loadingController: LoadingController,
    public passService : PassInformationService,
-   public auth  : AuthSeriveService) { 
+   public auth  : AuthSeriveService,
+   public ngZone: NgZone) { 
 
 //       this.user = firebase.auth().currentUser.uid
 // this.auth.setUser(this.user);
@@ -38,23 +39,25 @@ status
 
   ngOnInit() {
    console.log('mana',this.passService.role);
-   firebase.auth().onAuthStateChanged(res =>{
-     if(res){
-      this.role = this.passService.role;
-      firebase.firestore().collection('members').doc(res.uid).get().then(snap =>
-        {
-          console.log('userProfile', res.uid, snap.data().status);
-          this.status = snap.data().status
-        })
-     }else{
-       this.role = 'user';
-       console.log('no user');
-       
-     }
+   this.ngZone.run(()=>{
+    firebase.auth().onAuthStateChanged(res =>{
+      if(res){
+       this.role = this.passService.role;
+       firebase.firestore().collection('members').doc(res.uid).get().then(snap =>
+         {
+           if(snap.exists){
+             console.log('userProfile', res.uid, snap.data().status);
+             this.status = snap.data().status
+           }
+          
+         })
+      }else{
+        this.role = 'user';
+        console.log('no user');
+        
+      }
+    })
    })
-
-    
-   
   }
   profile(){
     if(this.status == 'awaiting'){
@@ -68,8 +71,8 @@ status
     this.router.navigateByUrl('login');
   }
   register(){
-// this.router.navigateByUrl('registerpage');
-this.router.navigateByUrl('manage-team');
+this.router.navigateByUrl('registerpage');
+// this.router.navigateByUrl('manage-team');
 
   }
   manageteam(){

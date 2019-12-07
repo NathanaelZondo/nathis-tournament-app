@@ -23,24 +23,18 @@ players = []
     while (this.players.length < 10) {
       this.players.push('card')
     }
-    // this.getTeam();
+    this.getTeam();
   }
   addTeam(){
     this.router.navigateByUrl('add-team');
-  }
-  viewPlayer(){
-    console.log('see');
-    
   }
   addPlayer(){
     this.router.navigateByUrl('add-player');
   }
 getTeam(){
-let user 
-
   this.db.collection('Teams').doc(firebase.auth().currentUser.uid).get().then(res =>{
     if(res.exists){
-     console.log(res.data());
+     console.log('data',res.data());
      this.isTeam = true;
      this.display = res.data();
      
