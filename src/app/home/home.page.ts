@@ -7,7 +7,8 @@ import * as firebase from 'firebase';
 import { PassInformationService } from '../services/pass-information.service';
 import { AuthSeriveService } from '../services/auth-serive.service';
 import { findWires } from 'selenium-webdriver/firefox';
-import { FCM } from '@ionic-native/fcm/ngx';
+// import { FCM } from '@ionic-native/fcm/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 @Component({
   selector: 'app-home',
@@ -20,12 +21,14 @@ popover1;
 db = firebase.firestore()
 role
 user
+token
 temporaryArray = []
   constructor(public router:Router,
     public popoverController: PopoverController,
     public pass : PassInformationService, 
     public auth: AuthSeriveService,
-    public fcm: FCM,
+    // public fcm: FCM,
+    private oneSignal: OneSignal,
     public ngZone: NgZone) {
 
 // this.router.navigate(['tournament']);
@@ -49,13 +52,23 @@ ionViewWillLeave()
   this.popover1.dismiss(); 
 }
 getToken(){
-  this.fcm.getToken().then(token => {
-  console.log(token);
-  this.db.collection('fcmTokens').add({
-    token: token,
-    uid: ''
+  this.oneSignal.getIds().then(res =>{
+    this.token = res.userId;
   })
-  });
+firebase.auth().onAuthStateChanged(res =>{
+  if(res.uid){
+    firebase.firestore().collection('Tokens').add({
+      uid: res.uid,
+      token: this.token
+    })
+    
+  }else{
+    firebase.firestore().collection('Tokens').add({
+      uid: '',
+      token: this.token
+    })
+  }
+})
   
 }
 ngOnInit(){
