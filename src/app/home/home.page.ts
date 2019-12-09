@@ -18,7 +18,7 @@ export class HomePage implements OnInit {
   
 popover1;
 db = firebase.firestore()
-role
+role = "user"
 user
 temporaryArray = []
   constructor(public router:Router,

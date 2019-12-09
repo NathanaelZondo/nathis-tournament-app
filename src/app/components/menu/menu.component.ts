@@ -42,11 +42,13 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getNewTournaments()
+
     this.ngZone.run(() => {
       firebase.auth().onAuthStateChanged(res => {
         if (res) {
           this.role = this.passService.role;
+          console.log('roleer',this.role);
+          
           firebase.firestore().collection('members').doc(res.uid).get().then(snap => {
             if (snap.exists) {
               this.status = snap.data().status
@@ -54,16 +56,14 @@ export class MenuComponent implements OnInit {
 
           })
         } else {
-          this.role = 'user';
-
         }
       })
     })
+    this.getNewTournaments()
   }
 
   // when we leave the page, update all the keys's values to read
-   
-
+  
   getExistingDocuments() {
     this.store.keys().then(res => {
       res.forEach(element => {
